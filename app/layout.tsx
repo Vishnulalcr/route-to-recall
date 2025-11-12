@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import ScrollToTop from "@/components/scroll-to-top"
+import { CardTransitionProvider } from "@/components/card-transition-provider"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,7 +11,6 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-// Update the metadata title and description
 export const metadata: Metadata = {
   title: "Route to Recall | Experiential Travel",
   description: "Crafting extraordinary travel experiences through authentic connections",
@@ -25,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ScrollToTop />
-        {children}
+        <CardTransitionProvider>
+          <ScrollToTop />
+          {children}
+        </CardTransitionProvider>
       </body>
     </html>
   )
