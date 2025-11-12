@@ -9,7 +9,6 @@ import BentoFooter from "@/components/bento-footer"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import EnquiryDialog from "@/components/enquiry-dialog"
-import { useCardTransition } from "@/components/card-transition-provider"
 
 interface ExperienceData {
   id: number
@@ -32,7 +31,6 @@ interface ExperienceData {
 
 export default function ExperienceClient({ experience }: { experience: ExperienceData }) {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false)
-  const { isTransitioning, transitionImage } = useCardTransition()
 
   return (
     <main className="bg-white text-[#1C1C1C] min-h-screen">
@@ -40,14 +38,9 @@ export default function ExperienceClient({ experience }: { experience: Experienc
 
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          initial={isTransitioning ? { scale: 1.2, opacity: 0 } : { opacity: 1 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="absolute inset-0">
           <Image
-            src={transitionImage || experience.image || "/placeholder.svg"}
+            src={experience.image || "/placeholder.svg"}
             alt={experience.title}
             fill
             className="object-cover"
@@ -55,7 +48,7 @@ export default function ExperienceClient({ experience }: { experience: Experienc
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        </motion.div>
+        </div>
 
         <div className="relative h-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16 flex flex-col justify-end pb-16">
           <Link
@@ -66,11 +59,7 @@ export default function ExperienceClient({ experience }: { experience: Experienc
             Back to Home
           </Link>
 
-          <motion.div
-            initial={isTransitioning ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: isTransitioning ? 0.35 : 0 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <div className="flex items-center gap-2 mb-4">
               <MapPin className="h-5 w-5 text-[#39FF14]" />
               <span className="text-white/90 text-lg">{experience.location}</span>

@@ -1,14 +1,10 @@
 "use client"
 
-import type React from "react"
-
 import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { useCardTransition } from "@/components/card-transition-provider"
-import { useRef } from "react"
 
 interface Stat {
   value: string
@@ -46,22 +42,8 @@ export default function BentoCard({
   stats,
   priority = false,
 }: BentoCardProps) {
-  const { startTransition } = useCardTransition()
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!link || !cardRef.current) return
-
-    if (link.startsWith("/experience/")) {
-      e.preventDefault()
-      const cardRect = cardRef.current.getBoundingClientRect()
-      startTransition(cardRect, link, image || "", color)
-    }
-  }
-
   return (
     <motion.div
-      ref={cardRef}
       className={`relative overflow-hidden rounded-2xl shadow-md border border-gray-200 ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +122,6 @@ export default function BentoCard({
             <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }} className="group">
               <Link
                 href={link}
-                onClick={handleClick}
                 className={`inline-flex items-center text-sm font-medium ${image ? "text-[#39FF14]" : color} hover:opacity-90 transition-opacity`}
               >
                 {linkText}

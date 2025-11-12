@@ -30,9 +30,8 @@ export async function generateMetadata({ params }: DestinationPageProps): Promis
   }
 }
 
-export default async function DestinationPage({ params }: DestinationPageProps) {
-  const { slug } = await params
-  const destination = getDestinationBySlug(slug)
+export default function DestinationPage({ params }: DestinationPageProps) {
+  const destination = getDestinationBySlug(params.slug)
 
   if (!destination) {
     notFound()
@@ -41,12 +40,7 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
   return (
     <>
       <BentoNavigation />
-      <main
-        key={slug}
-        className="bg-white text-[#1C1C1C] min-h-screen"
-        role="main"
-        aria-label={`${destination.name} destination details`}
-      >
+      <main key={params.slug} className="bg-white text-[#1C1C1C] min-h-screen">
         <DestinationHero destination={destination} />
         <DestinationOverview destination={destination} />
         <DestinationHighlights destination={destination} />
@@ -61,12 +55,10 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
 export async function generateStaticParams() {
   return [
     { slug: "thailand" },
-    { slug: "singapore" },
     { slug: "malaysia" },
-    { slug: "maldives" },
-    { slug: "bali" },
-    { slug: "sri-lanka" },
-    { slug: "nepal" },
+    { slug: "vietnam" },
     { slug: "dubai" },
+    { slug: "bali" },
+    { slug: "maldives" },
   ]
 }
