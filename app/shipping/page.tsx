@@ -26,9 +26,9 @@ export default function ShippingPage() {
               <div className="w-16 h-16 rounded-full bg-[#F3ECFF] flex items-center justify-center">
                 <FileText className="h-8 w-8 text-[#00C2FF]" />
               </div>
-              <h1 className="text-4xl md:text-6xl font-black text-[#1C1C1C]">Shipping Policy</h1>
+              <h1 className="text-4xl md:text-6xl font-black text-[#1C1C1C]">Shipping and Delivery Policy</h1>
             </div>
-            <p className="text-[#666666] text-lg">Route to Recall - Last Updated: 05-04-2025</p>
+            <p className="text-[#666666] text-lg">Route to Recall Private Limited - Last Updated: 05-04-2025</p>
           </motion.div>
         </div>
       </section>
@@ -41,44 +41,111 @@ export default function ShippingPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-8"
           >
-            <div className="space-y-6 text-[#666666] leading-relaxed text-lg">
+            <div className="space-y-8 text-[#666666] leading-relaxed text-lg">
               <p>
-                For <strong className="text-[#1C1C1C]">International buyers</strong>, orders are shipped and delivered
-                through registered international courier companies and/or International speed post only.
+                Route to Recall Private Limited does not ship physical products. All travel related documents are
+                delivered digitally. This policy explains how confirmations, tickets, and travel documents are delivered
+                to clients who book domestic or international travel with us.
               </p>
 
-              <p>
-                For <strong className="text-[#1C1C1C]">domestic buyers</strong>, orders are shipped through registered
-                domestic courier companies and/or speed post only.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 text-[#1C1C1C]">1. Delivery Method</h2>
+                <p className="mb-4">All travel documents are delivered electronically through:</p>
+                <ul className="list-disc ml-6 space-y-2 mb-4">
+                  <li>Email</li>
+                  <li>WhatsApp (when required)</li>
+                  <li>SMS notification (if applicable)</li>
+                </ul>
+                <p className="mb-4">Documents delivered include:</p>
+                <ul className="list-disc ml-6 space-y-2 mb-4">
+                  <li>Booking confirmations</li>
+                  <li>Flight tickets</li>
+                  <li>Hotel vouchers</li>
+                  <li>Activity vouchers</li>
+                  <li>Final travel itinerary</li>
+                  <li>Payment receipts and invoices</li>
+                </ul>
+                <p>
+                  This method ensures fast, secure, and reliable delivery to all clients, locally and internationally.
+                </p>
+              </div>
 
-              <p>
-                Orders are shipped within <strong className="text-[#1C1C1C]">Not Applicable</strong> or as per the
-                delivery date agreed at the time of order confirmation and delivering of the shipment subject to Courier
-                Company / post office norms.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 text-[#1C1C1C]">2. Delivery Time</h2>
+                <p className="mb-4">Delivery times depend on the type of service:</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">Domestic and International Packages</h3>
+                    <p>
+                      Travel documents are delivered once the booking is confirmed and payments are received as per the
+                      payment schedule.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">Flight Tickets</h3>
+                    <p>Delivered after full payment of the flight fare and successful ticket issuance.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">Hotel and Activity Vouchers</h3>
+                    <p>
+                      Delivered after supplier confirmation, which may take a few hours to a few days depending on
+                      destination and availability.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">Visa Documents</h3>
+                    <p>Shared after processing and approval, based on embassy timelines.</p>
+                  </div>
+                </div>
+                <p className="mt-4">We will inform you of estimated delivery times once your booking is processed.</p>
+              </div>
 
-              <p>
-                <strong className="text-[#1C1C1C]">ROUTE TO RECALL PRIVATE LIMITED</strong> is not liable for any delay
-                in delivery by the courier company / postal authorities and only guarantees to hand over the consignment
-                to the courier company or postal authorities within{" "}
-                <strong className="text-[#1C1C1C]">Not Applicable</strong> from the date of the order and payment or as
-                per the delivery date agreed at the time of order confirmation.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 text-[#1C1C1C]">3. Physical Documents (If Required)</h2>
+                <p className="mb-4">
+                  In rare situations, if a client requires printed documents or hard copies, they can be shipped through
+                  registered domestic or international couriers.
+                </p>
+                <ul className="list-disc ml-6 space-y-2">
+                  <li>Any courier timelines will follow the service norms of the respective courier company.</li>
+                  <li>
+                    Route to Recall is not responsible for courier delays but ensures timely dispatch of documents from
+                    our end.
+                  </li>
+                </ul>
+              </div>
 
-              <p>
-                Delivery of all orders will be to the{" "}
-                <strong className="text-[#1C1C1C]">address provided by the buyer</strong>.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 text-[#1C1C1C]">4. Delivery Responsibility</h2>
+                <p className="mb-4">Document delivery is considered complete when:</p>
+                <ul className="list-disc ml-6 space-y-2 mb-4">
+                  <li>The email with attachments is successfully sent</li>
+                  <li>The WhatsApp message with documents is delivered</li>
+                  <li>Courier tracking details are handed over (if applicable)</li>
+                </ul>
+                <p className="mb-4">
+                  Clients are responsible for providing accurate email addresses and contact information at the time of
+                  booking.
+                </p>
+                <p className="mb-4">Route to Recall is not responsible for:</p>
+                <ul className="list-disc ml-6 space-y-2">
+                  <li>Email delivery issues due to spam filters or wrong email entry</li>
+                  <li>Missed messages due to incorrect phone numbers</li>
+                  <li>Delays caused by third party courier companies</li>
+                </ul>
+              </div>
 
-              <p>
-                Delivery of our services will be confirmed on your <strong className="text-[#1C1C1C]">mail ID</strong>{" "}
-                as specified during registration.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 text-[#1C1C1C]">5. Contact for Delivery Issues</h2>
+                <p className="mb-4">
+                  If you do not receive your travel documents within the expected timeline, please contact our support
+                  team immediately.
+                </p>
+              </div>
 
               <div className="bg-[#F7F9FC] p-8 rounded-lg border border-[#E0E0E0] mt-8">
                 <h3 className="text-2xl font-bold mb-4 text-[#1C1C1C]">Need Help?</h3>
-                <p className="mb-4">For any issues in utilizing our services, you may contact our helpdesk:</p>
+                <p className="mb-4">Contact our support team:</p>
                 <div className="space-y-2">
                   <p>
                     <strong className="text-[#1C1C1C]">Phone:</strong>{" "}
@@ -96,6 +163,17 @@ export default function ShippingPage() {
                       className="text-[#A259FF] hover:text-[#39FF14] transition-colors font-semibold"
                     >
                       enquiries@routetorecall.com
+                    </a>
+                  </p>
+                  <p>
+                    <strong className="text-[#1C1C1C]">Website:</strong>{" "}
+                    <a
+                      href="https://www.routetorecall.com"
+                      className="text-[#A259FF] hover:text-[#39FF14] transition-colors font-semibold"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      www.routetorecall.com
                     </a>
                   </p>
                 </div>
