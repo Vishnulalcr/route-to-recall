@@ -30,11 +30,11 @@ export default function DestinationCta({ destination }: DestinationCtaProps) {
             <div className="flex flex-wrap gap-6 mb-8">
               <div>
                 <p className="text-gray-400 mb-1">Email</p>
-                <p className="font-medium">hello@routetorecall.com</p>
+                <p className="font-medium">enquiries@routetorecall.com</p>
               </div>
               <div>
                 <p className="text-gray-400 mb-1">Phone</p>
-                <p className="font-medium">+1 (555) 123-4567</p>
+                <p className="font-medium">6363331334</p>
               </div>
             </div>
           </motion.div>

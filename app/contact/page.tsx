@@ -96,8 +96,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#1C1C1C] mb-1">Phone</h3>
-                      <a href="tel:+919036335388" className="text-[#666666] hover:text-[#39FF14] transition-colors">
-                        +91 9036 335388
+                      <a href="tel:6363331334" className="text-[#666666] hover:text-[#39FF14] transition-colors">
+                        6363331334
                       </a>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#39FF14] transition-colors"
-                          placeholder="+91 9036 335388"
+                          placeholder="6363331334"
                         />
                       </div>
 

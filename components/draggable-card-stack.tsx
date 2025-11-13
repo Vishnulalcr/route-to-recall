@@ -24,21 +24,21 @@ const cardData: CardData[] = [
     id: 2,
     title: "Singapore",
     description: "Modern city-state with diverse cultures and cuisines",
-    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2052&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2352&auto=format&fit=crop",
     color: "#00BCD4",
   },
   {
     id: 3,
     title: "Malaysia",
     description: "Cultural melting pot with rainforests and islands",
-    image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2064&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2364&auto=format&fit=crop",
     color: "#9C27B0",
   },
   {
     id: 4,
     title: "Maldives",
     description: "Paradise of overwater bungalows and turquoise waters",
-    image: "https://images.unsplash.com/photo-1514282401047-85c8e12f0c0e?q=80&w=2065&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2365&auto=format&fit=crop",
     color: "#00BCD4",
   },
   {
@@ -59,7 +59,7 @@ const cardData: CardData[] = [
     id: 7,
     title: "Nepal",
     description: "Home of the Himalayas and spiritual experiences",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2071&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?q=80&w=2370&auto=format&fit=crop",
     color: "#F44336",
   },
   {

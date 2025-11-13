@@ -53,7 +53,7 @@ export default function FAQPage() {
     {
       question: "What is the best way to contact you?",
       answer:
-        "You can reach us easily via Call or WhatsApp at +91 9036 335388, or Email at enquiries@routetorecall.com. For all business or partnership queries, please contact us only through email.",
+        "You can reach us easily via Call or WhatsApp at 6363331334, or Email at enquiries@routetorecall.com. For all business or partnership queries, please contact us only through email.",
     },
     {
       question: "How can I make payments, and what are the payment terms?",
@@ -297,8 +297,8 @@ export default function FAQPage() {
           </div>
           <div className="mt-4">
             <p className="font-semibold text-[#1C1C1C]">Phone</p>
-            <a href="tel:+919036335388" className="text-[#666666] hover:text-[#39FF14] transition-colors">
-              +91 9036 335388
+            <a href="tel:6363331334" className="text-[#666666] hover:text-[#39FF14] transition-colors">
+              6363331334
             </a>
           </div>
         </motion.div>

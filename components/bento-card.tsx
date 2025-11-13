@@ -63,7 +63,18 @@ export default function BentoCard({
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.5 }}
           >
-            <Image src={image || "/placeholder.svg"} alt={imageAlt} fill className="object-cover" priority={priority} />
+            <Image
+              src={image || "/placeholder.svg"}
+              alt={imageAlt}
+              fill
+              className="object-cover"
+              priority={priority}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement
+                target.src = "/placeholder.svg?height=600&width=800"
+              }}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1C]/90 via-[#1C1C1C]/50 to-transparent" />
           </motion.div>
         </div>

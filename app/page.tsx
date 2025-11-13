@@ -11,6 +11,7 @@ import ScrollingGallery from "@/components/scrolling-gallery"
 import CursorEffect from "@/components/cursor-effect"
 import DraggableCardStack from "@/components/draggable-card-stack"
 import DestinationGrid from "@/components/destination-grid"
+import TestimonialsMasonry from "@/components/testimonials-masonry"
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -58,7 +59,7 @@ export default function Home() {
       name: "Singapore",
       location: "Southeast Asia",
       description: "Modern city-state blending cultures, cuisines, and cutting-edge architecture",
-      image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2052&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1508964942454-1a56651d54ac?q=80&w=2070&auto=format&fit=crop",
       color: "#00C2FF",
     },
     {
@@ -66,7 +67,7 @@ export default function Home() {
       name: "Malaysia",
       location: "Southeast Asia",
       description: "A cultural melting pot with modern cities, ancient rainforests, and idyllic islands",
-      image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1590079014833-d3d8b7c85ce4?q=80&w=2400&auto=format&fit=crop",
       color: "#A259FF",
     },
     {
@@ -74,7 +75,7 @@ export default function Home() {
       name: "Maldives",
       location: "Indian Ocean",
       description: "Paradise of overwater bungalows and crystal-clear turquoise waters",
-      image: "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=2938&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=2400&auto=format&fit=crop",
       color: "#00C2FF",
     },
     {
@@ -82,7 +83,7 @@ export default function Home() {
       name: "Bali",
       location: "Indonesia",
       description: "Island of the Gods with lush jungles and pristine beaches",
-      image: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&auto=format&fit=crop&q=80",
+      image: "https://images.unsplash.com/photo-1555400038637-be1999ff37cd?w=800&auto=format&fit=crop&q=80",
       color: "#A259FF",
     },
     {
@@ -98,7 +99,7 @@ export default function Home() {
       name: "Nepal",
       location: "South Asia",
       description: "Home of the Himalayas with trekking adventures and spiritual experiences",
-      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2071&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2400&auto=format&fit=crop",
       color: "#A259FF",
     },
     {
@@ -149,7 +150,7 @@ export default function Home() {
       location: "Bali",
       description:
         "Immerse yourself in the Island of the Gods. Experience sacred temples, rice terraces, pristine beaches, and spiritual wellness retreats.",
-      image: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&auto=format&fit=crop&q=80",
+      image: "https://images.unsplash.com/photo-1555400038637-be1999ff37cd?w=800&auto=format&fit=crop&q=80",
       color: "#A259FF",
       icon: <Heart className="h-5 w-5" />,
     },
@@ -219,18 +220,17 @@ export default function Home() {
     {
       name: "Ajisha Rajan",
       role: "Co Founder",
-      image:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ajisha%20Rajan-Rbe2jdOkrPytCB6musZNUWoav3oP8i.jpeg",
+      image: "/images/ajisha-20rajan.jpeg",
     },
     {
       name: "Vinayak lal",
       role: "Founder & CEO",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Vinayak-wUVa3AmjYiezYOaiTPkN5DF3fet45b.jpeg",
+      image: "/images/vinayak.jpeg",
     },
     {
       name: "Sanjita Krishnan",
       role: "Operations Manager",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sanjita-RNlcJhcf6RnOFZDYC1tmGn0vmbK3xE.jpeg",
+      image: "/images/sanjita.jpeg",
     },
   ]
 
@@ -250,13 +250,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
         >
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Pic-Jeo748jlNrgF6sreBAy4ZNpZZ9VdMH.png"
-            alt="Minimalist misty landscape"
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src="/images/pic.png" alt="Minimalist misty landscape" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
         </motion.div>
 
@@ -367,7 +361,7 @@ export default function Home() {
         {/* Background Image Layer 1 - Tropical beach with parallax effect */}
         <motion.div className="absolute inset-0 w-full h-full -z-30" style={{ y: heroParallax }}>
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pexels-silent-sightseer-208940871-11720472.jpg-WftYWHdzkmIu1YwkpvhRp8BQyVum4F.jpeg"
+            src="/images/pexels-silent-sightseer-208940871.jpeg"
             alt="Tropical beach with limestone cliffs and turquoise water"
             fill
             className="object-cover"
@@ -413,46 +407,6 @@ export default function Home() {
           </motion.div>
 
           <DestinationGrid destinations={destinations} />
-        </div>
-      </section>
-
-      {/* Banner Section */}
-      <section className="relative h-[40vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pexels-baskincreativeco-1766838.jpg-OzTWvOCaEXrnbcGebTx8mtx6jKxb3u.jpeg"
-            alt="Turquoise river flowing through forest gorge"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-        </div>
-
-        <div className="relative h-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16 flex flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-xl"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 drop-shadow-lg">
-              Discover Nature's Hidden Treasures
-            </h2>
-            <p className="text-white/90 text-lg md:text-xl mb-8 drop-shadow-md">
-              Immerse yourself in breathtaking landscapes that will transform your perspective
-            </p>
-            <a
-              href="https://www.instagram.com/routetorecall/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-[#39FF14] hover:bg-[#A259FF] text-[#1C1C1C] hover:text-white font-bold px-8 py-6 transition-all duration-300"
-            >
-              Explore Our Journeys
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
-          </motion.div>
         </div>
       </section>
 
@@ -578,6 +532,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <TestimonialsMasonry />
+
       {/* About Us Section */}
       <section className="py-16 md:py-32 relative overflow-hidden bg-[#F7F9FC] text-[#1C1C1C]">
         {/* Background elements */}
@@ -664,8 +621,7 @@ export default function Home() {
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Philosophy</h3>
                 <p className="text-white/90 text-lg max-w-2xl">
-                  We believe in the transformative power of travel—its ability to broaden perspectives, foster
-                  connections, and create memories that last a lifetime.
+                  Route to Recall creates meaningful journeys that connect people to places, stories and themselves. We design thoughtful travel experiences that linger as lasting memories, enriching life long after the trip ends.
                 </p>
               </div>
             </motion.div>
@@ -693,7 +649,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="text-4xl font-black text-[#39FF14]">100+</div>
+                  <div className="text-4xl font-black text-[#39FF14]">200+</div>
                   <div className="text-[#666666]">Happy Travellers</div>
                 </div>
               </div>
