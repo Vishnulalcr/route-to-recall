@@ -97,7 +97,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-[#1C1C1C] mb-1">Phone</h3>
                       <a href="tel:6363331334" className="text-[#666666] hover:text-[#39FF14] transition-colors">
-                        6363331334
+                        +91 6363 331 334
                       </a>
                     </div>
                   </div>

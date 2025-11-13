@@ -34,7 +34,7 @@ export default function DestinationCta({ destination }: DestinationCtaProps) {
               </div>
               <div>
                 <p className="text-gray-400 mb-1">Phone</p>
-                <p className="font-medium">6363331334</p>
+                <p className="font-medium">+91 6363 331 334</p>
               </div>
             </div>
           </motion.div>
