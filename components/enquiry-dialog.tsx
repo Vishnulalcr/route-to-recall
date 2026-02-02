@@ -24,13 +24,50 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log("Form submitted:", formData)
-    // You can integrate with your backend or email service here
-    alert("Thank you for your enquiry! We'll get back to you soon.")
-    onClose()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message })
+        // Reset form after successful submission
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          destination: experienceName,
+          travelers: "1",
+          dates: "",
+          message: "",
+        })
+        // Close dialog after 2 seconds on success
+        setTimeout(() => {
+          onClose()
+          setSubmitStatus(null)
+        }, 2000)
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'Something went wrong. Please try again.' })
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -218,21 +255,30 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
                   </div>
                 </div>
 
+                {/* Status Message */}
+                {submitStatus && (
+                  <div className={`p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+                    {submitStatus.message}
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <div className="flex gap-4 pt-4">
                   <Button
                     type="button"
                     onClick={onClose}
                     variant="outline"
-                    className="flex-1 py-6 rounded-lg border-2 border-gray-300 hover:bg-gray-50 bg-transparent"
+                    disabled={isSubmitting}
+                    className="flex-1 py-6 rounded-lg border-2 border-gray-300 hover:bg-gray-50 bg-transparent disabled:opacity-50"
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
-                    className="flex-1 py-6 rounded-lg bg-[#39FF14] hover:bg-[#A259FF] text-[#1C1C1C] hover:text-white font-bold transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="flex-1 py-6 rounded-lg bg-[#39FF14] hover:bg-[#A259FF] text-[#1C1C1C] hover:text-white font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Enquiry
+                    {isSubmitting ? 'Sending...' : 'Send Enquiry'}
                   </Button>
                 </div>
               </form>

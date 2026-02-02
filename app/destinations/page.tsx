@@ -7,8 +7,15 @@ import BentoNavigation from "@/components/bento-navigation"
 import BentoFooter from "@/components/bento-footer"
 
 export const metadata: Metadata = {
-  title: "Destinations | Route to Recall",
-  description: "Explore our handpicked destinations for your next unforgettable journey.",
+  title: "Destinations",
+  description: "Explore our handpicked travel destinations across Asia - Thailand, Singapore, Malaysia, Maldives, Bali, Sri Lanka, Nepal, Dubai & Cambodia. Find your next unforgettable journey.",
+  openGraph: {
+    title: "Destinations | Route to Recall",
+    description: "Explore our handpicked travel destinations across Asia for your next unforgettable journey.",
+  },
+  alternates: {
+    canonical: "https://routetorecall.com/destinations",
+  },
 }
 
 export default function DestinationsPage() {
