@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, Sparkles, MapPin, Camera, Heart, Compass, Briefcase, Award } from "lucide-react"
+import { Sparkles, MapPin, Camera, Heart, Compass, Briefcase, Award, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import BentoNavigation from "@/components/bento-navigation"
 import BentoFooter from "@/components/bento-footer"
@@ -12,6 +12,7 @@ import CursorEffect from "@/components/cursor-effect"
 import DraggableCardStack from "@/components/draggable-card-stack"
 import DestinationGrid from "@/components/destination-grid"
 import TestimonialsMasonry from "@/components/testimonials-masonry"
+import HeroEnquiryForm from "@/components/hero-enquiry-form"
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -310,51 +311,7 @@ export default function Home() {
               </button>
             </div>
 
-            <motion.form
-              className={`w-full border-t border-white/20 pt-4 px-4 md:px-8 lg:px-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 ${
-                isMobileFormOpen ? "grid" : "hidden"
-              } md:grid`}
-              initial={false}
-              animate={{ opacity: 1 }}
-            >
-              <div className="sm:col-span-1 lg:col-span-1">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
-                  required
-                />
-              </div>
-              <div className="sm:col-span-1 lg:col-span-1">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
-                  required
-                />
-              </div>
-              <div className="sm:col-span-1 lg:col-span-1">
-                <input
-                  type="tel"
-                  placeholder="Contact Number"
-                  className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
-                  required
-                />
-              </div>
-              <div className="sm:col-span-1 lg:col-span-1">
-                <div className="flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Destination"
-                    className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
-                    required
-                  />
-                  <button type="submit" className="ml-2 text-white hover:text-[#39FF14] transition-all flex-shrink-0">
-                    <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                  </button>
-                </div>
-              </div>
-            </motion.form>
+            <HeroEnquiryForm isOpen={isMobileFormOpen} formOpacity={formOpacity} formY={formY} />
           </motion.div>
         </div>
 
