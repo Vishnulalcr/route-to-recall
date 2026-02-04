@@ -23,10 +23,10 @@ export default function Footer() {
   }
 
   return (
-    <footer className="py-24 px-4 bg-[#F0E9DF]">
+    <footer className="py-24 px-4 bg-muted">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          className="w-16 h-px bg-[#1A1A1A] opacity-50 mx-auto mb-16"
+          className="w-16 h-px bg-foreground opacity-50 mx-auto mb-16"
           initial={{ width: 0 }}
           whileInView={{ width: 64 }}
           transition={{ duration: 0.8 }}
@@ -48,7 +48,7 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-[#1A1A1A]/20 flex items-center justify-center hover:border-[#A05C2E] hover:bg-[#A05C2E]/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-foreground/20 flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label="Instagram"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-[#1A1A1A]/20 flex items-center justify-center hover:border-[#A05C2E] hover:bg-[#A05C2E]/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-foreground/20 flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label="Twitter"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +92,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-[#1A1A1A]/20 flex items-center justify-center hover:border-[#A05C2E] hover:bg-[#A05C2E]/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-foreground/20 flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label="Pinterest"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -207,32 +207,32 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="w-full bg-transparent border-b border-[#1A1A1A]/50 py-2 px-0 focus:outline-none focus:border-[#A05C2E]"
+                    className="w-full bg-transparent border-b border-foreground/50 py-2 px-0 focus:outline-none focus:border-primary"
                     required
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="rounded-full bg-[#1A1A1A] hover:bg-[#A05C2E] text-white transition-all duration-300 w-full"
+                  className="rounded-full bg-foreground hover:bg-primary text-background transition-all duration-300 w-full"
                 >
                   Subscribe
                 </Button>
               </form>
             ) : (
               <motion.div
-                className="bg-[#A05C2E]/10 p-4 rounded-sm border border-[#A05C2E]/20"
+                className="bg-primary/10 p-4 rounded-sm border border-primary/20"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-[#A05C2E] font-medium">Thank you for subscribing!</p>
+                <p className="text-primary font-medium">Thank you for subscribing!</p>
                 <p className="text-sm opacity-70 mt-1">We'll be in touch with travel inspiration soon.</p>
               </motion.div>
             )}
           </motion.div>
         </div>
 
-        <div className="text-center opacity-60 text-sm border-t border-[#1A1A1A]/10 pt-8">
+        <div className="text-center opacity-60 text-sm border-t border-foreground/10 pt-8">
           <p>&copy; {currentYear} Route to Recall. All rights reserved.</p>
         </div>
       </div>
