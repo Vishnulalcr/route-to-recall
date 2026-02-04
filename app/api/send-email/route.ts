@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
+import * as Brevo from "@getbrevo/brevo"
 import {
   type FormType,
   type EmailData,
@@ -7,18 +7,19 @@ import {
   getEmailHtml,
 } from "@/lib/email-templates"
 
-// Lazy initialization of Resend client to avoid build-time errors
-let resend: Resend | null = null
+// Initialize Brevo API client
+let apiInstance: Brevo.TransactionalEmailsApi | null = null
 
-function getResendClient(): Resend {
-  if (!resend) {
-    const apiKey = process.env.RESEND_API_KEY
+function getBrevoClient(): Brevo.TransactionalEmailsApi {
+  if (!apiInstance) {
+    const apiKey = process.env.BREVO_API_KEY
     if (!apiKey) {
-      throw new Error("RESEND_API_KEY is not configured")
+      throw new Error("BREVO_API_KEY is not configured")
     }
-    resend = new Resend(apiKey)
+    apiInstance = new Brevo.TransactionalEmailsApi()
+    apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey)
   }
-  return resend
+  return apiInstance
 }
 
 // Rate limiting store (in production, use Redis or similar)
@@ -60,6 +61,8 @@ function sanitizeInput(input: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("[v0] Brevo email API called")
+
     // Get client IP for rate limiting
     const forwardedFor = request.headers.get("x-forwarded-for")
     const ip = forwardedFor?.split(",")[0] || "unknown"
@@ -67,6 +70,7 @@ export async function POST(request: NextRequest) {
     // Check rate limit
     const { allowed, remaining } = getRateLimitInfo(ip)
     if (!allowed) {
+      console.log("[v0] Rate limit exceeded for IP:", ip)
       return NextResponse.json(
         {
           success: false,
@@ -85,8 +89,12 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { formType, ...formData } = body as { formType: FormType } & EmailData
 
+    console.log("[v0] Form type:", formType)
+    console.log("[v0] Form data received:", JSON.stringify(formData, null, 2))
+
     // Honeypot check - if website field is filled, it's likely a bot
     if ((formData as any).website) {
+      console.log("[v0] Honeypot triggered - likely bot submission")
       // Silently return success to not alert bots
       return NextResponse.json(
         { success: true, message: "Thank you for your submission!" },
@@ -96,6 +104,7 @@ export async function POST(request: NextRequest) {
 
     // Validate form type
     if (!["quick-contact", "contact", "quote-request"].includes(formType)) {
+      console.log("[v0] Invalid form type:", formType)
       return NextResponse.json(
         { success: false, error: "Invalid form type" },
         { status: 400 }
@@ -175,12 +184,15 @@ export async function POST(request: NextRequest) {
     const subject = getEmailSubject(formType, sanitizedData)
     const html = getEmailHtml(formType, sanitizedData)
 
-    // Get Resend client (will throw if not configured)
-    let resendClient: Resend
+    console.log("[v0] Email subject:", subject)
+
+    // Get Brevo client (will throw if not configured)
+    let brevoClient: Brevo.TransactionalEmailsApi
     try {
-      resendClient = getResendClient()
+      brevoClient = getBrevoClient()
+      console.log("[v0] Brevo client initialized successfully")
     } catch (err) {
-      console.error("RESEND_API_KEY is not configured")
+      console.error("[v0] BREVO_API_KEY is not configured:", err)
       return NextResponse.json(
         {
           success: false,
@@ -190,17 +202,65 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send email via Resend
-    const { data, error } = await resendClient.emails.send({
-      from: "Route to Recall <noreply@routetorecall.com>",
-      to: ["enquiries@routetorecall.com"],
-      replyTo: (sanitizedData as any).email,
-      subject: subject,
-      html: html,
-    })
+    // Prepare email data for Brevo
+    const senderEmail = process.env.SENDER_EMAIL || "noreply@routetorecall.com"
+    const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    if (error) {
-      console.error("Resend error:", error)
+    const sendSmtpEmail: Brevo.SendSmtpEmail = {
+      sender: {
+        name: "Route to Recall",
+        email: senderEmail,
+      },
+      to: [
+        {
+          email: contactEmail,
+          name: "Route to Recall Enquiries",
+        },
+      ],
+      replyTo: {
+        email: (sanitizedData as any).email,
+        name: (sanitizedData as any).name,
+      },
+      subject: subject,
+      htmlContent: html,
+    }
+
+    console.log("[v0] Sending email via Brevo...")
+    console.log("[v0] From:", senderEmail)
+    console.log("[v0] To:", contactEmail)
+    console.log("[v0] Reply-To:", (sanitizedData as any).email)
+
+    // Send email via Brevo
+    try {
+      const result = await brevoClient.sendTransacEmail(sendSmtpEmail)
+      console.log("[v0] Brevo email sent successfully:", JSON.stringify(result, null, 2))
+
+      // Success response
+      const successMessages: Record<FormType, string> = {
+        "quick-contact":
+          "Thank you for your inquiry! We'll get back to you within 24 hours.",
+        contact:
+          "Thank you for your message! Our team will respond shortly.",
+        "quote-request":
+          "Thank you for your quote request! We'll prepare a customized itinerary for you.",
+      }
+
+      return NextResponse.json(
+        {
+          success: true,
+          message: successMessages[formType],
+          messageId: (result as any)?.messageId || "sent",
+        },
+        {
+          status: 200,
+          headers: {
+            "X-RateLimit-Remaining": remaining.toString(),
+          },
+        }
+      )
+    } catch (emailError: any) {
+      console.error("[v0] Brevo API error:", emailError)
+      console.error("[v0] Brevo error response:", emailError?.response?.body || emailError?.message)
       return NextResponse.json(
         {
           success: false,
@@ -209,32 +269,8 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
-
-    // Success response
-    const successMessages: Record<FormType, string> = {
-      "quick-contact":
-        "Thank you for your inquiry! We'll get back to you within 24 hours.",
-      contact:
-        "Thank you for your message! Our team will respond shortly.",
-      "quote-request":
-        "Thank you for your quote request! We'll prepare a customized itinerary for you.",
-    }
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: successMessages[formType],
-        messageId: data?.id,
-      },
-      {
-        status: 200,
-        headers: {
-          "X-RateLimit-Remaining": remaining.toString(),
-        },
-      }
-    )
   } catch (error) {
-    console.error("Email API error:", error)
+    console.error("[v0] Email API error:", error)
     return NextResponse.json(
       { success: false, error: "An unexpected error occurred" },
       { status: 500 }
