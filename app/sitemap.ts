@@ -3,78 +3,80 @@ import destinations from "@/lib/destinations-data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://routetorecall.com"
+  const currentDate = new Date()
 
-  // Static pages
-  const staticPages = [
+  // Static pages with priorities based on importance
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      lastModified: currentDate,
+      changeFrequency: "daily",
       priority: 1,
     },
     {
       url: `${baseUrl}/destinations`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/experiences`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
+      lastModified: currentDate,
+      changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
+      lastModified: currentDate,
+      changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/cancellation`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
+      lastModified: currentDate,
+      changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/shipping`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
+      lastModified: currentDate,
+      changeFrequency: "yearly",
       priority: 0.3,
     },
   ]
 
-  // Dynamic destination pages
-  const destinationPages = destinations.map((destination) => ({
+  // Dynamic destination pages - high priority as main content
+  const destinationPages: MetadataRoute.Sitemap = destinations.map((destination) => ({
     url: `${baseUrl}/destinations/${destination.slug}`,
-    lastModified: new Date(),
+    lastModified: currentDate,
     changeFrequency: "weekly" as const,
-    priority: 0.8,
+    priority: 0.85,
   }))
 
+  // Combine all pages
   return [...staticPages, ...destinationPages]
 }
