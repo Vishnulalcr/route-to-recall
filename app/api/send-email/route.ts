@@ -7,8 +7,19 @@ import {
   getEmailHtml,
 } from "@/lib/email-templates"
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy initialization of Resend client to avoid build-time errors
+let resend: Resend | null = null
+
+function getResendClient(): Resend {
+  if (!resend) {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      throw new Error("RESEND_API_KEY is not configured")
+    }
+    resend = new Resend(apiKey)
+  }
+  return resend
+}
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -160,8 +171,15 @@ export async function POST(request: NextRequest) {
       ;(sanitizedData as any).message = sanitizeInput(formData.message || "")
     }
 
-    // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY) {
+    // Get email content
+    const subject = getEmailSubject(formType, sanitizedData)
+    const html = getEmailHtml(formType, sanitizedData)
+
+    // Get Resend client (will throw if not configured)
+    let resendClient: Resend
+    try {
+      resendClient = getResendClient()
+    } catch (err) {
       console.error("RESEND_API_KEY is not configured")
       return NextResponse.json(
         {
@@ -172,12 +190,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get email content
-    const subject = getEmailSubject(formType, sanitizedData)
-    const html = getEmailHtml(formType, sanitizedData)
-
     // Send email via Resend
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await resendClient.emails.send({
       from: "Route to Recall <noreply@routetorecall.com>",
       to: ["enquiries@routetorecall.com"],
       replyTo: (sanitizedData as any).email,
