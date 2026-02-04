@@ -17,6 +17,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
     email: "",
     phone: "",
     destination: "",
+    website: "", // Honeypot field
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -31,20 +32,26 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Honeypot check - if filled, it's likely a bot
+    if (formData.website) {
+      setIsSubmitted(true)
+      setTimeout(() => setIsSubmitted(false), 5000)
+      return
+    }
+    
     setIsSubmitting(true)
     setError(null)
 
     try {
-      const response = await fetch('/api/enquiry', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          formType: 'quick-contact',
           ...formData,
-          travelers: "Not specified",
-          dates: "Not specified",
-          message: "Quick enquiry from homepage hero form",
         }),
       })
 
@@ -52,7 +59,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
 
       if (response.ok) {
         setIsSubmitted(true)
-        setFormData({ name: "", email: "", phone: "", destination: "" })
+        setFormData({ name: "", email: "", phone: "", destination: "", website: "" })
         // Reset after 5 seconds
         setTimeout(() => setIsSubmitted(false), 5000)
       } else {
@@ -91,6 +98,20 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
       initial={false}
       animate={{ opacity: 1 }}
     >
+      {/* Honeypot field - hidden from users but visible to bots */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="hero-website">Website</label>
+        <input
+          type="text"
+          id="hero-website"
+          name="website"
+          value={formData.website}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+      
       {error && (
         <div className="col-span-full text-red-400 text-sm mb-2 text-center">
           {error}
