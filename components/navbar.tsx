@@ -28,12 +28,12 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/90 backdrop-blur-md shadow-md py-4" : "bg-transparent py-6"
+          isScrolled ? "bg-background/90 backdrop-blur-md shadow-md py-4" : "bg-transparent py-6"
         }`}
       >
         <div className="container flex items-center justify-between px-4">
           <Link href="/" className="text-2xl font-bold">
-            <span className={isScrolled ? "text-gray-900" : "text-white"}>
+            <span className={isScrolled ? "text-foreground" : "text-primary-foreground"}>
               <Image src="/logo-black.png" alt="Route to Recall" width={120} height={40} className="h-10 w-auto" />
             </span>
           </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
             <Link
               href="#"
               className={`font-medium hover:opacity-80 transition-opacity ${
-                isScrolled ? "text-gray-900" : "text-white"
+                isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
               Destinations
@@ -50,7 +50,7 @@ export default function Navbar() {
             <Link
               href="#"
               className={`font-medium hover:opacity-80 transition-opacity ${
-                isScrolled ? "text-gray-900" : "text-white"
+                isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
               Experiences
@@ -58,7 +58,7 @@ export default function Navbar() {
             <Link
               href="#"
               className={`font-medium hover:opacity-80 transition-opacity ${
-                isScrolled ? "text-gray-900" : "text-white"
+                isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
               Plan Your Trip
@@ -66,7 +66,7 @@ export default function Navbar() {
             <Link
               href="#"
               className={`font-medium hover:opacity-80 transition-opacity ${
-                isScrolled ? "text-gray-900" : "text-white"
+                isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
               About Us
@@ -83,7 +83,7 @@ export default function Navbar() {
           </nav>
 
           <button className="md:hidden" onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
-            <Menu className={isScrolled ? "text-gray-900" : "text-white"} size={24} />
+            <Menu className={isScrolled ? "text-foreground" : "text-primary-foreground"} size={24} />
           </button>
         </div>
       </header>
@@ -91,7 +91,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 bg-white z-50 md:hidden"
+            className="fixed inset-0 bg-background z-50 md:hidden"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

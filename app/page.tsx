@@ -238,7 +238,7 @@ export default function Home() {
   const [isMobileFormOpen, setIsMobileFormOpen] = useState(false)
 
   return (
-    <main ref={containerRef} className="bg-white text-[#1C1C1C] min-h-screen overflow-hidden">
+    <main ref={containerRef} className="bg-background text-foreground min-h-screen overflow-hidden">
       <CursorEffect />
       <BentoNavigation />
 
@@ -263,7 +263,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto text-primary">
               Where every Journey Turns into Stories
             </h1>
           </motion.div>
@@ -347,7 +347,7 @@ export default function Home() {
 
       {/* Destinations Section */}
       <section className="py-16 md:py-32 px-4 md:px-8 lg:px-16 relative">
-        <div className="absolute inset-0 bg-[#F7F9FC] -z-10"></div>
+        <div className="absolute inset-0 bg-muted -z-10"></div>
 
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -357,8 +357,8 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-black mb-6 text-[#1C1C1C]">Find your next Holiday</h2>
-            <p className="text-[#666666] max-w-2xl mx-auto text-lg">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground">Find your next Holiday</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Explore our handcrafted travel plans for an unforgettable experiences and breathtaking landscapes
             </p>
           </motion.div>
@@ -368,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* Experiences Section */}
-      <section className="py-16 md:py-32 px-4 md:px-8 lg:px-16 relative bg-white">
+      <section className="py-16 md:py-32 px-4 md:px-8 lg:px-16 relative bg-background">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="mb-12 md:mb-20 text-center"
@@ -377,10 +377,10 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-[#1C1C1C]">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-foreground">
               Curated experiences
             </h2>
-            <p className="text-[#666666] max-w-2xl mx-auto text-base md:text-lg px-4">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg px-4">
               Immersive activities that transform how you connect with the world
             </p>
           </motion.div>
@@ -397,7 +397,7 @@ export default function Home() {
               color={experiences[0].color}
               link={`/experience/${experiences[0].id}`}
               priority
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             {/* Text Card - Quote */}
@@ -406,7 +406,7 @@ export default function Home() {
               title="Not all who wander are lost."
               description="We create experiences that transform how you see the world."
               color="#A259FF"
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
               link="/about"
               linkText="Our philosophy"
             />
@@ -421,7 +421,7 @@ export default function Home() {
               color={experiences[1].color}
               icon={experiences[1].icon}
               link={`/experience/${experiences[1].id}`}
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             {/* Experience Card 3 - Wide */}
@@ -435,7 +435,7 @@ export default function Home() {
               color={experiences[2].color}
               icon={experiences[2].icon}
               link={`/experience/${experiences[2].id}`}
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             {/* Experience Card 4 - Bali */}
@@ -448,7 +448,7 @@ export default function Home() {
               color={experiences[3].color}
               icon={experiences[3].icon}
               link={`/experience/${experiences[3].id}`}
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             {/* Second row - additional experiences */}
@@ -461,7 +461,7 @@ export default function Home() {
               color={experiences[4].color}
               icon={experiences[4].icon}
               link={`/experience/${experiences[4].id}`}
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             <BentoCard
@@ -473,7 +473,7 @@ export default function Home() {
               color={experiences[5].color}
               icon={experiences[5].icon}
               link={`/experience/${experiences[5].id}`}
-              textColor="text-[#1C1C1C]"
+              textColor="text-foreground"
             />
 
             <BentoCard
@@ -493,7 +493,7 @@ export default function Home() {
       <TestimonialsMasonry />
 
       {/* About Us Section */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-[#F7F9FC] text-[#1C1C1C]">
+      <section className="py-16 md:py-32 relative overflow-hidden bg-muted text-foreground">
         {/* Background elements */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488085061385-50cf7c579365?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5"></div>
 
@@ -525,7 +525,7 @@ export default function Home() {
 
             <div className="flex flex-col md:flex-row items-start gap-4">
               <motion.h2
-                className="text-6xl md:text-8xl font-black leading-none text-[#1C1C1C] md:w-2/3"
+                className="text-6xl md:text-8xl font-black leading-none text-foreground md:w-2/3"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -543,7 +543,7 @@ export default function Home() {
               >
                 <div className="h-1 w-20 bg-[#39FF14] mb-6"></div>
                 <motion.p
-                  className="text-[#666666]"
+                  className="text-muted-foreground"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
@@ -573,7 +573,7 @@ export default function Home() {
                 className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1C]/80 via-[#1C1C1C]/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent"></div>
 
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Philosophy</h3>
@@ -585,7 +585,7 @@ export default function Home() {
 
             {/* Stats card */}
             <motion.div
-              className="md:col-span-4 bg-white rounded-3xl p-8 flex flex-col justify-center border border-gray-200 shadow-lg"
+              className="md:col-span-4 bg-card rounded-3xl p-8 flex flex-col justify-center border border-border shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -622,7 +622,7 @@ export default function Home() {
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <div className="absolute -top-10 -right-10 text-[200px] font-serif text-[#A259FF]/10">"</div>
-              <p className="text-xl italic text-[#1C1C1C] mb-6 relative z-10">
+              <p className="text-xl italic text-foreground mb-6 relative z-10">
                 Wherever you go becomes a part of you somehow.
               </p>
               <p className="text-[#666666]">— Anita Desai</p>
@@ -632,7 +632,7 @@ export default function Home() {
           {/* Our values section */}
           <div className="mb-24">
             <motion.h3
-              className="text-3xl font-bold mb-12 text-center text-[#1C1C1C]"
+              className="text-3xl font-bold mb-12 text-center text-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -645,7 +645,7 @@ export default function Home() {
               {companyValues.map((value, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white backdrop-blur-sm border border-gray-200 rounded-3xl p-8 h-full shadow-lg"
+                  className="bg-card backdrop-blur-sm border border-border rounded-3xl p-8 h-full shadow-lg"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -657,12 +657,12 @@ export default function Home() {
                   }}
                 >
                   <div
-                    className="w-16 h-16 rounded-full bg-[#1C1C1C] flex items-center justify-center mb-6"
+                    className="w-16 h-16 rounded-full bg-foreground flex items-center justify-center mb-6"
                     style={{ boxShadow: `0 0 15px ${value.color}60` }}
                   >
                     {value.icon}
                   </div>
-                  <h4 className="text-2xl font-bold mb-4 text-[#1C1C1C]">{value.title}</h4>
+                  <h4 className="text-2xl font-bold mb-4 text-foreground">{value.title}</h4>
                   <p className="text-[#666666]">{value.description}</p>
                 </motion.div>
               ))}
@@ -678,7 +678,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-3xl font-bold text-[#1C1C1C]">Meet Our Team</h3>
+              <h3 className="text-3xl font-bold text-foreground">Meet Our Team</h3>
               <p className="text-[#666666] max-w-md">
                 Our expert travel designers work closely with local partners to craft authentic, immersive experiences.
               </p>
@@ -694,7 +694,7 @@ export default function Home() {
               {teamMembers.map((member, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white backdrop-blur-sm border border-gray-200 rounded-3xl p-8 shadow-lg text-center"
+                  className="bg-card backdrop-blur-sm border border-border rounded-3xl p-8 shadow-lg text-center"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -704,7 +704,7 @@ export default function Home() {
                   <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#F3ECFF]">
                     <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
                   </div>
-                  <h4 className="text-xl font-bold mb-1 text-[#1C1C1C]">{member.name}</h4>
+                  <h4 className="text-xl font-bold mb-1 text-foreground">{member.name}</h4>
                   <p className="text-[#666666]">{member.role}</p>
                 </motion.div>
               ))}
@@ -716,7 +716,7 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-[#F7F9FC]">
+      <section className="py-16 md:py-32 relative overflow-hidden bg-muted">
         <motion.div
           className="mb-20 text-center"
           initial={{ opacity: 0, y: 50 }}
@@ -724,7 +724,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black leading-none mb-6 md:mb-8 text-[#1C1C1C]">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black leading-none mb-6 md:mb-8 text-foreground">
             Let's <span className="text-[#A259FF]">go</span>
           </h2>
 
