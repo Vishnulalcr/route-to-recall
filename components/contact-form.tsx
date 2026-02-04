@@ -13,6 +13,7 @@ export default function ContactForm() {
     phone: "",
     subject: "",
     message: "",
+    website: "", // Honeypot field
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -20,6 +21,13 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Honeypot check - if filled, it's likely a bot
+    if (formData.website) {
+      setSubmitStatus({ type: 'success', message: 'Thank you for your message!' })
+      return
+    }
+    
     setIsSubmitting(true)
     setSubmitStatus(null)
 
@@ -36,7 +44,7 @@ export default function ContactForm() {
 
       if (response.ok) {
         setSubmitStatus({ type: 'success', message: data.message })
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "", website: "" })
       } else {
         setSubmitStatus({ type: 'error', message: data.error || 'Something went wrong. Please try again.' })
       }
@@ -73,6 +81,20 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot field - hidden from users but visible to bots */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          value={formData.website}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+      
       {submitStatus?.type === 'error' && (
         <div className="p-4 rounded-lg bg-red-50 text-red-800 border border-red-200">
           {submitStatus.message}

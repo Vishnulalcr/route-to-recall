@@ -22,6 +22,7 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
     travelers: "1",
     dates: "",
     message: "",
+    website: "", // Honeypot field
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -29,6 +30,17 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Honeypot check - if filled, it's likely a bot
+    if (formData.website) {
+      setSubmitStatus({ type: 'success', message: 'Thank you for your enquiry!' })
+      setTimeout(() => {
+        onClose()
+        setSubmitStatus(null)
+      }, 2000)
+      return
+    }
+    
     setIsSubmitting(true)
     setSubmitStatus(null)
 
@@ -54,6 +66,7 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
           travelers: "1",
           dates: "",
           message: "",
+          website: "",
         })
         // Close dialog after 2 seconds on success
         setTimeout(() => {
@@ -114,6 +127,20 @@ export default function EnquiryDialog({ isOpen, onClose, experienceName = "" }: 
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6">
+                {/* Honeypot field - hidden from users but visible to bots */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <label htmlFor="enquiry-website">Website</label>
+                  <input
+                    type="text"
+                    id="enquiry-website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+                
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">

@@ -4,7 +4,16 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
-    const { name, email, phone, destination, travelers, dates, message } = body
+    const { name, email, phone, destination, travelers, dates, message, website } = body
+
+    // Honeypot check - if website field is filled, it's likely a bot
+    if (website) {
+      // Silently return success to not alert bots
+      return NextResponse.json(
+        { success: true, message: "Thank you for your enquiry!" },
+        { status: 200 }
+      )
+    }
 
     // Validate required fields
     if (!name || !email || !phone || !destination) {

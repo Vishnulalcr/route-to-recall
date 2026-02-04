@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import ScrollToTop from "@/components/scroll-to-top"
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/json-ld"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -95,6 +96,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <OrganizationJsonLd />
+        <WebsiteJsonLd />
+      </head>
       <body className={inter.className}>
         <ScrollToTop />
         {children}
