@@ -14,10 +14,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://routetorecall.com"),
   title: {
-    default: "Route to Recall | Experiential Travel Company",
+    default: "Route to Recall | Experiential Travel Company - Unforgettable Tour Packages",
     template: "%s | Route to Recall",
   },
-  description: "Crafting extraordinary travel experiences across Thailand, Singapore, Malaysia, Maldives, Bali, Sri Lanka, Nepal, Dubai & Cambodia. Curated journeys that turn into unforgettable stories.",
+  description: "Crafting extraordinary travel experiences across Thailand, Singapore, Malaysia, Maldives, Bali, Sri Lanka, Nepal, Dubai & Cambodia. Curated journeys that turn into unforgettable stories. Book your dream vacation today!",
   keywords: [
     "experiential travel",
     "travel company",
@@ -34,6 +34,11 @@ export const metadata: Metadata = {
     "holiday packages",
     "adventure travel",
     "luxury travel",
+    "tour packages India",
+    "international tour packages",
+    "honeymoon packages",
+    "family vacation packages",
+    "travel agency Kerala",
   ],
   authors: [{ name: "Route to Recall" }],
   creator: "Route to Recall",
@@ -43,24 +48,36 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-dark-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://routetorecall.com",
     siteName: "Route to Recall",
     title: "Route to Recall | Experiential Travel Company",
-    description: "Crafting extraordinary travel experiences across Asia. Curated journeys that turn into unforgettable stories.",
+    description: "Crafting extraordinary travel experiences across Asia. Curated journeys that turn into unforgettable stories. Book your dream vacation today!",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Route to Recall - Experiential Travel",
+        alt: "Route to Recall - Experiential Travel Company - Unforgettable Tour Packages",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@routetorecall",
+    creator: "@routetorecall",
     title: "Route to Recall | Experiential Travel Company",
     description: "Crafting extraordinary travel experiences across Asia. Curated journeys that turn into unforgettable stories.",
     images: ["/og-image.jpg"],
@@ -79,7 +96,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://routetorecall.com",
   },
-    generator: 'v0.app'
+  verification: {
+    google: "YOUR_GOOGLE_VERIFICATION_CODE",
+  },
+  category: "travel",
+  generator: "v0.app",
 }
 
 export const viewport: Viewport = {
