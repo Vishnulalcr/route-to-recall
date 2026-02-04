@@ -263,7 +263,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto text-primary">
               Where every Journey Turns into Stories
             </h1>
           </motion.div>
