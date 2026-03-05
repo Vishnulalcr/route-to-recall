@@ -1,3 +1,5 @@
+import Script from "next/script"
+
 export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -109,8 +111,10 @@ export function OrganizationJsonLd() {
   }
 
   return (
-    <script
+    <Script
+      id="organization-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -133,8 +137,10 @@ export function WebsiteJsonLd() {
   }
 
   return (
-    <script
+    <Script
+      id="website-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -194,8 +200,10 @@ export function TourPackageJsonLd({
   }
 
   return (
-    <script
+    <Script
+      id={`tour-package-jsonld-${name.toLowerCase().replace(/\s+/g, "-")}`}
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -218,8 +226,10 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
   }
 
   return (
-    <script
+    <Script
+      id="breadcrumb-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -244,8 +254,10 @@ export function FAQJsonLd({ faqs }: FAQJsonLdProps) {
   }
 
   return (
-    <script
+    <Script
+      id="faq-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -297,8 +309,10 @@ export function TouristDestinationJsonLd({
   }
 
   return (
-    <script
+    <Script
+      id={`tourist-destination-jsonld-${name.toLowerCase().replace(/\s+/g, "-")}`}
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -348,8 +362,10 @@ export function LocalBusinessJsonLd({ pagePath = "" }: LocalBusinessJsonLdProps)
   }
 
   return (
-    <script
+    <Script
+      id="local-business-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
@@ -403,8 +419,10 @@ export function ReviewAggregateJsonLd({
   }
 
   return (
-    <script
+    <Script
+      id="review-aggregate-jsonld"
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   )
