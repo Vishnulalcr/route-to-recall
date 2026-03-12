@@ -243,18 +243,7 @@ export default function Home() {
       <BentoNavigation />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col">
-        {/* Main Hero Background Image - Full Page */}
-        <motion.div
-          className="absolute inset-0 w-full h-full z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
-        >
-          <Image src="/images/pic.png" alt="Minimalist misty landscape" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
-        </motion.div>
-
+      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col bg-white">
         <div className="relative z-10 flex-1 flex flex-col">
           {/* Hero Title - Fixed at top */}
           <motion.div
@@ -286,9 +275,9 @@ export default function Home() {
             <div className="flex justify-center mb-3 px-4 md:hidden -mt-[100px]">
               <button
                 onClick={() => setIsMobileFormOpen(!isMobileFormOpen)}
-                className="flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-full border border-white/30 transition-all"
+                className="flex items-center gap-2 px-6 py-3 bg-black/5 hover:bg-black/10 rounded-full border border-black/10 transition-all"
               >
-                <span className="text-white font-medium text-sm">
+                <span className="text-[#1C1C1C] font-medium text-sm">
                   {isMobileFormOpen ? "Hide Form" : "Plan Your Trip"}
                 </span>
                 <motion.svg
@@ -302,7 +291,7 @@ export default function Home() {
                 >
                   <path
                     d="M6 9L12 15L18 9"
-                    stroke="white"
+                    stroke="#1C1C1C"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -315,34 +304,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Background Image Layer 1 - Tropical beach with parallax effect */}
-        <motion.div className="absolute inset-0 w-full h-full -z-30" style={{ y: heroParallax }}>
-          <Image
-            src="/images/pexels-silent-sightseer-208940871.jpeg"
-            alt="Tropical beach with limestone cliffs and turquoise water"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/30"></div>
-        </motion.div>
-
-        {/* Background Image Layer 2 - Turquoise river with scale effect */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vh] -z-20"
-          style={{ scale: heroScale }}
-        >
-          <div className="absolute inset-0">
-            <Image
-              src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop"
-              alt="Turquoise river flowing through forest gorge"
-              fill
-              className="object-cover opacity-60 mix-blend-overlay"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
-          </div>
-        </motion.div>
       </section>
 
       {/* Destinations Section */}
