@@ -75,7 +75,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
   if (isSubmitted) {
     return (
       <motion.div
-        className="w-full border-t border-white/20 pt-4 px-4 md:px-8 lg:px-16"
+        className="w-full border-t border-[#A259FF]/30 pt-4 px-4 md:px-8 lg:px-16"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
@@ -83,7 +83,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
           <div className="w-10 h-10 rounded-full bg-[#39FF14] flex items-center justify-center">
             <Check className="h-5 w-5 text-[#1C1C1C]" />
           </div>
-          <p className="text-white text-lg">Thank you! We'll get back to you within 24 hours.</p>
+          <p className="text-[#1C1C1C] text-lg">Thank you! We'll get back to you within 24 hours.</p>
         </div>
       </motion.div>
     )
@@ -92,7 +92,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className={`w-full border-t border-white/20 pt-4 px-4 md:px-8 lg:px-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 ${
+      className={`w-full border-t border-[#A259FF]/30 pt-4 px-4 md:px-8 lg:px-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 ${
         isOpen ? "grid" : "hidden"
       } md:grid`}
       initial={false}
@@ -111,9 +111,9 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
           autoComplete="off"
         />
       </div>
-      
+
       {error && (
-        <div className="col-span-full text-red-400 text-sm mb-2 text-center">
+        <div className="col-span-full text-red-500 text-sm mb-2 text-center">
           {error}
         </div>
       )}
@@ -124,7 +124,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
           value={formData.name}
           onChange={handleChange}
           placeholder="Full Name"
-          className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
+          className="w-full px-4 py-3 bg-transparent border-b border-[#A259FF]/40 focus:border-[#A259FF] focus:outline-none text-[#1C1C1C] placeholder:text-[#A259FF]/60 transition-all text-sm md:text-base"
           required
         />
       </div>
@@ -135,7 +135,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
           value={formData.email}
           onChange={handleChange}
           placeholder="Email Address"
-          className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
+          className="w-full px-4 py-3 bg-transparent border-b border-[#A259FF]/40 focus:border-[#A259FF] focus:outline-none text-[#1C1C1C] placeholder:text-[#A259FF]/60 transition-all text-sm md:text-base"
           required
         />
       </div>
@@ -146,7 +146,7 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
           value={formData.phone}
           onChange={handleChange}
           placeholder="Contact Number"
-          className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
+          className="w-full px-4 py-3 bg-transparent border-b border-[#A259FF]/40 focus:border-[#A259FF] focus:outline-none text-[#1C1C1C] placeholder:text-[#A259FF]/60 transition-all text-sm md:text-base"
           required
         />
       </div>
@@ -158,13 +158,13 @@ export default function HeroEnquiryForm({ isOpen, formOpacity, formY }: HeroEnqu
             value={formData.destination}
             onChange={handleChange}
             placeholder="Destination"
-            className="w-full px-4 py-3 bg-transparent border-b border-white/30 focus:border-[#39FF14] focus:outline-none text-white placeholder:text-white/60 transition-all text-sm md:text-base"
+            className="w-full px-4 py-3 bg-transparent border-b border-[#A259FF]/40 focus:border-[#A259FF] focus:outline-none text-[#1C1C1C] placeholder:text-[#A259FF]/60 transition-all text-sm md:text-base"
             required
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isSubmitting}
-            className="ml-2 text-white hover:text-[#39FF14] transition-all flex-shrink-0 disabled:opacity-50"
+            className="ml-2 text-[#A259FF] hover:text-[#1C1C1C] transition-all flex-shrink-0 disabled:opacity-50"
           >
             {isSubmitting ? (
               <Loader2 className="h-4 w-4 md:h-5 md:w-5 animate-spin" />
