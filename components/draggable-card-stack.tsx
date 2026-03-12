@@ -98,9 +98,7 @@ function getElastic(val: number) {
 
 export default function DraggableCardStack() {
   const stageRef = useRef<HTMLDivElement>(null)
-  const dotsRef = useRef<HTMLDivElement>(null)
   const cardElsRef = useRef<Record<number, HTMLDivElement | null>>({})
-  const dotElsRef = useRef<HTMLDivElement[]>([])
   const orderRef = useRef<number[]>(cardData.map((_, i) => i))
 
   const isDraggingRef = useRef(false)
@@ -120,14 +118,7 @@ export default function DraggableCardStack() {
 
     order.forEach((cardIdx, pos) => {
       const el = cardElsRef.current[cardIdx]
-      const dot = dotElsRef.current[cardIdx]
       if (!el) return
-
-      // Dot update
-      if (dot) {
-        dot.style.width = pos === 0 ? "22px" : "6px"
-        dot.style.background = pos === 0 ? "#1a1a1a" : "#C2BCB4"
-      }
 
       // Transition
       if (transitionOverride) {
@@ -297,22 +288,7 @@ export default function DraggableCardStack() {
         ))}
       </div>
 
-      {/* Dots */}
-      <div ref={dotsRef} className="flex gap-2 items-center" style={{ height: 10 }}>
-        {cardData.map((_, idx) => (
-          <div
-            key={idx}
-            ref={(el) => { if (el) dotElsRef.current[idx] = el }}
-            style={{
-              height: 6,
-              width: idx === 0 ? 22 : 6,
-              borderRadius: 10,
-              background: idx === 0 ? "#1a1a1a" : "#C2BCB4",
-              transition: "all 0.4s cubic-bezier(0.2, 1, 0.3, 1)",
-            }}
-          />
-        ))}
-      </div>
+
     </div>
   )
 }
