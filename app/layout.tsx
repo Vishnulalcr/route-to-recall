@@ -117,11 +117,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
+      <body className={inter.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
-      </head>
-      <body className={inter.className}>
         <ScrollToTop />
         {children}
       </body>
