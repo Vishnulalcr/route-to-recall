@@ -247,7 +247,7 @@ export default function Home() {
         <div className="relative z-10 flex-1 flex flex-col">
           {/* Hero Title - Fixed at top */}
           <motion.div
-            className="pt-24 md:pt-32 px-4 flex-shrink-0 mt-[30px]"
+            className="pt-24 md:pt-32 px-4 flex-shrink-0 mt-[50px]"
             style={{ y: headerY, opacity: headerOpacity }}
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
