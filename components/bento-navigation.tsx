@@ -19,8 +19,8 @@ export default function BentoNavigation() {
   return (
     <>
       {/* Floating pill navbar */}
-      <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4">
-        <nav className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-full shadow-lg shadow-black/8 border border-white/60 px-5 py-3 flex items-center justify-between">
+      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-6">
+        <nav className="w-full bg-white/95 backdrop-blur-md rounded-full shadow-sm shadow-black/6 border border-black/6 px-5 py-2.5 flex items-center justify-between">
 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
@@ -33,7 +33,7 @@ export default function BentoNavigation() {
               <Link
                 key={item.name}
                 href={item.path}
-                className="px-4 py-1.5 text-sm font-medium text-[#1C1C1C]/70 hover:text-[#1C1C1C] hover:bg-black/5 rounded-full transition-all duration-200"
+                className="px-4 py-1.5 text-sm font-medium text-[#1C1C1C]/60 hover:text-[#1C1C1C] hover:bg-black/5 rounded-full transition-all duration-200 tracking-wide"
               >
                 {item.name}
               </Link>

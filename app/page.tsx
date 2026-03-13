@@ -326,62 +326,55 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 flex-1 flex flex-col">
-          {/* Hero Title - Fixed at top */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-0">
+          {/* Hero Title */}
           <motion.div
-            className="pt-24 md:pt-32 px-4 flex-shrink-0 mt-[50px]"
+            className="pt-28 md:pt-32 px-4 flex-shrink-0"
             style={{ y: headerY, opacity: headerOpacity }}
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-center max-w-4xl uppercase shimmer-hero-text mx-auto font-serif">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] tracking-tight text-center max-w-3xl shimmer-hero-text mx-auto">
               Where every Journey Turns into Stories
             </h1>
           </motion.div>
 
-          <div className="flex-1 relative min-h-[250px] sm:min-h-[350px] md:min-h-[500px] flex items-center justify-center -mt-[250px] md:-mt-[100px]">
+          {/* Cards — centered in remaining space */}
+          <div className="flex-1 flex items-center justify-center w-full py-6">
             <DraggableCardStack />
           </div>
 
+          {/* Enquiry form at bottom */}
           <motion.div
-            className="relative z-20 w-full pb-4 md:pb-8 flex-shrink-0 -mt-[150px] md:mt-0 md:absolute md:bottom-0 md:left-0 md:right-0"
-            initial={{ opacity: 0, y: 50 }}
+            className="relative z-20 w-full pb-6 md:pb-10 flex-shrink-0"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            style={{
-              opacity: formOpacity,
-              y: formY,
-            }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            style={{ opacity: formOpacity, y: formY }}
           >
-            {/* Mobile toggle button */}
-            <div className="flex justify-center mb-3 px-4 md:hidden -mt-[100px]">
+            {/* Mobile toggle */}
+            <div className="flex justify-center mb-3 px-4 md:hidden">
               <button
                 onClick={() => setIsMobileFormOpen(!isMobileFormOpen)}
-                className="flex items-center gap-2 px-6 py-3 bg-black/5 hover:bg-black/10 rounded-full border border-black/10 transition-all"
+                className="flex items-center gap-2 px-6 py-2.5 bg-black/5 hover:bg-black/8 rounded-full border border-black/8 transition-all"
               >
-                <span className="text-[#1C1C1C] font-medium text-sm">
+                <span className="text-[#1C1C1C] font-medium text-sm tracking-wide">
                   {isMobileFormOpen ? "Hide Form" : "Plan Your Trip"}
                 </span>
                 <motion.svg
-                  width="16"
-                  height="16"
+                  width="14"
+                  height="14"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   animate={{ rotate: isMobileFormOpen ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="#1C1C1C"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M6 9L12 15L18 9" stroke="#1C1C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </motion.svg>
               </button>
             </div>
-
             <HeroEnquiryForm isOpen={isMobileFormOpen} formOpacity={formOpacity} formY={formY} />
           </motion.div>
         </div>
@@ -400,7 +393,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground font-serif tracking-tight">Find your next Holiday</h2>
+            <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-foreground tracking-tight">Find your next Holiday</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Explore our handcrafted travel plans for an unforgettable experiences and breathtaking landscapes
             </p>
@@ -420,7 +413,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-foreground font-serif tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-foreground tracking-tight">
               Curated experiences
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg px-4">

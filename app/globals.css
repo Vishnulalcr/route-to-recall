@@ -168,16 +168,14 @@ html {
 .rounded-lg { border-radius: var(--radius); }
 .rounded-xl { border-radius: calc(var(--radius) + 4px); }
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
-
 @theme inline {
-  --font-sans: var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), 'Fraunces', Georgia, serif;
+  --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
 .font-serif {
-  font-family: var(--font-fraunces), 'Fraunces', Georgia, serif;
-  letter-spacing: -0.03em;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 a,

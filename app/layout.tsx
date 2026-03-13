@@ -1,15 +1,13 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
-import { DM_Sans, Fraunces } from "next/font/google"
-import ScrollToTop from "@/components/scroll-to-top"
-import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/json-ld"
+import { Plus_Jakarta_Sans } from "next/font/google"
 
-const dmSans = DM_Sans({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm-sans",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800"],
 })
 
 const fraunces = Fraunces({
@@ -124,8 +122,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
-      <body className={dmSans.className}>
+    <html lang="en" className={`${plusJakartaSans.variable}`}>
+      <body className={plusJakartaSans.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <ScrollToTop />
