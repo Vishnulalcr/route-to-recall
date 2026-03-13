@@ -243,10 +243,10 @@ export default function Home() {
       <BentoNavigation />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col" style={{ backgroundColor: "#F5F5F7" }}>
+      <section ref={heroRef} className="min-h-screen relative flex flex-col" style={{ backgroundColor: "#F5F5F7" }}>
 
         {/* Animated gradient mesh background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {/* Base soft off-white layer */}
           <div className="absolute inset-0" style={{ backgroundColor: "#F0F0F5" }} />
 
@@ -376,14 +376,14 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Cards — rising from bottom */}
-          <div className="flex-1 flex items-end justify-center pb-36 md:pb-40 relative z-10 mt-12 md:mt-16">
+          {/* Cards */}
+          <div className="flex-1 flex items-end justify-center pb-4 md:pb-10 relative z-10 mt-12 md:mt-16">
             <DraggableCardStack />
           </div>
 
-          {/* Bottom gradient veil — sits BELOW cards and form */}
+          {/* Bottom gradient veil — sits BELOW cards and form, desktop only */}
           <div
-            className="absolute bottom-0 left-0 right-0 pointer-events-none"
+            className="hidden md:block absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
               zIndex: 5,
               height: "48%",
@@ -391,8 +391,8 @@ export default function Home() {
             }}
           />
 
-          {/* Enquiry form — anchored at very bottom, inside gradient veil */}
-          <div className="absolute bottom-0 left-0 right-0 z-30 pb-6 md:pb-10">
+          {/* Enquiry form — in normal flow on mobile, absolute at bottom on desktop */}
+          <div className="relative md:absolute md:bottom-0 md:left-0 md:right-0 z-30 pb-6 md:pb-10 mt-0 md:mt-0">
             <HeroEnquiryForm isOpen={true} formOpacity={formOpacity} formY={formY} />
           </div>
 

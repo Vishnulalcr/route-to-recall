@@ -233,18 +233,30 @@ export default function DraggableCardStack() {
 
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-full select-none">
-      {/* Stage */}
+      {/* Stage — sized responsively via CSS custom properties */}
       <div
         ref={stageRef}
         className="relative touch-none"
         style={{
-          width: 350,
-          height: 525,
+          width: "var(--card-w, 297px)",
+          height: "var(--card-h, 446px)",
           perspective: 1500,
           marginBottom: 32,
           cursor: "grab",
         }}
       >
+        <style>{`
+          :root {
+            --card-w: 297px;
+            --card-h: 446px;
+          }
+          @media (min-width: 768px) {
+            :root {
+              --card-w: 350px;
+              --card-h: 525px;
+            }
+          }
+        `}</style>
         {cardData.map((card, idx) => (
           <div
             key={card.id}
