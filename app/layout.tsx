@@ -2,19 +2,14 @@ import type React from "react"
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
+import ScrollToTop from "@/components/scroll-to-top"
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/json-ld"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-jakarta",
   weight: ["300", "400", "500", "600", "700", "800"],
-})
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-  weight: ["400", "700", "900"],
 })
 
 export const metadata: Metadata = {
