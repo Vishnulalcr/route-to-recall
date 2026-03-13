@@ -1,14 +1,22 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { DM_Sans, Fraunces } from "next/font/google"
 import ScrollToTop from "@/components/scroll-to-top"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/json-ld"
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
+  weight: ["300", "400", "500", "600", "700"],
+})
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  weight: ["400", "700", "900"],
 })
 
 export const metadata: Metadata = {
@@ -116,8 +124,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
+      <body className={dmSans.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <ScrollToTop />

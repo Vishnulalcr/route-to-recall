@@ -334,7 +334,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto text-purple-600">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-center max-w-4xl uppercase shimmer-hero-text mx-auto font-serif">
               Where every Journey Turns into Stories
             </h1>
           </motion.div>
@@ -400,7 +400,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground">Find your next Holiday</h2>
+            <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground font-serif tracking-tight">Find your next Holiday</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Explore our handcrafted travel plans for an unforgettable experiences and breathtaking landscapes
             </p>
@@ -420,7 +420,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-foreground">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-foreground font-serif tracking-tight">
               Curated experiences
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg px-4">
