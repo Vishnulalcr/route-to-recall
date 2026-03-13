@@ -377,7 +377,7 @@ export default function Home() {
           </motion.div>
 
           {/* Cards — rising from bottom */}
-          <div className="flex-1 flex items-end justify-center pb-36 md:pb-40 relative z-10">
+          <div className="flex-1 flex items-end justify-center pb-36 md:pb-40 relative z-10 mt-12 md:mt-16">
             <DraggableCardStack />
           </div>
 
