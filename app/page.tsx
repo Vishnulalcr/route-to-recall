@@ -326,57 +326,75 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-0">
-          {/* Hero Title */}
+        <div className="relative z-10 w-full flex flex-col" style={{ minHeight: "100vh" }}>
+
+          {/* Hero Title block — upper portion */}
           <motion.div
-            className="pt-28 md:pt-32 px-4 flex-shrink-0"
+            className="flex flex-col items-center text-center px-6 pt-36 md:pt-44 pb-4"
             style={{ y: headerY, opacity: headerOpacity }}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] tracking-tight text-center max-w-3xl shimmer-hero-text mx-auto">
-              Where every Journey Turns into Stories
+            {/* Eyebrow label */}
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#A259FF]/10 text-[#7C3AED] text-xs font-medium tracking-widest uppercase mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Experiential Travel
+            </motion.span>
+
+            <h1 className="text-4xl sm:text-5xl md:text-[3.75rem] font-semibold leading-[1.1] tracking-tight text-[#1a1a1a] max-w-2xl mb-5">
+              Where every journey turns into stories
             </h1>
+
+            <p className="text-[#6B7280] text-base md:text-lg max-w-md leading-relaxed mb-8">
+              Handcrafted travel experiences across Asia's most extraordinary destinations.
+            </p>
+
+            {/* CTA buttons */}
+            <motion.div
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <a
+                href="/destinations"
+                className="px-6 py-2.5 bg-[#1a1a1a] text-white text-sm font-medium rounded-full hover:bg-[#A259FF] transition-all duration-300"
+              >
+                Start your journey
+              </a>
+              <a
+                href="/about"
+                className="px-6 py-2.5 bg-white text-[#1a1a1a] text-sm font-medium rounded-full border border-black/10 hover:border-[#A259FF] hover:text-[#A259FF] transition-all duration-300"
+              >
+                Learn more
+              </a>
+            </motion.div>
           </motion.div>
 
-          {/* Cards — centered in remaining space */}
-          <div className="flex-1 flex items-center justify-center w-full py-6">
+          {/* Cards — rising from bottom */}
+          <div className="flex-1 flex items-end justify-center pb-36 md:pb-40 relative z-10">
             <DraggableCardStack />
           </div>
 
-          {/* Enquiry form at bottom */}
-          <motion.div
-            className="relative z-20 w-full pb-6 md:pb-10 flex-shrink-0"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            style={{ opacity: formOpacity, y: formY }}
-          >
-            {/* Mobile toggle */}
-            <div className="flex justify-center mb-3 px-4 md:hidden">
-              <button
-                onClick={() => setIsMobileFormOpen(!isMobileFormOpen)}
-                className="flex items-center gap-2 px-6 py-2.5 bg-black/5 hover:bg-black/8 rounded-full border border-black/8 transition-all"
-              >
-                <span className="text-[#1C1C1C] font-medium text-sm tracking-wide">
-                  {isMobileFormOpen ? "Hide Form" : "Plan Your Trip"}
-                </span>
-                <motion.svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  animate={{ rotate: isMobileFormOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <path d="M6 9L12 15L18 9" stroke="#1C1C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </motion.svg>
-              </button>
-            </div>
-            <HeroEnquiryForm isOpen={isMobileFormOpen} formOpacity={formOpacity} formY={formY} />
-          </motion.div>
+          {/* Bottom gradient veil — covers form + card bottoms */}
+          <div
+            className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
+            style={{
+              height: "42%",
+              background: "linear-gradient(to top, rgba(240,240,245,1) 0%, rgba(240,240,245,0.97) 30%, rgba(240,240,245,0.7) 65%, transparent 100%)",
+            }}
+          />
+
+          {/* Enquiry form — anchored at very bottom, inside gradient veil */}
+          <div className="absolute bottom-0 left-0 right-0 z-30 pb-6 md:pb-10">
+            <HeroEnquiryForm isOpen={true} formOpacity={formOpacity} formY={formY} />
+          </div>
+
         </div>
 
       </section>
