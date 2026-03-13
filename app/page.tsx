@@ -363,13 +363,13 @@ export default function Home() {
             >
               <a
                 href="/destinations"
-                className="px-6 py-2.5 bg-[#1a1a1a] text-white text-sm font-medium rounded-full hover:bg-[#A259FF] transition-all duration-300"
+                className="px-4 py-1.5 bg-[#1a1a1a] text-white text-xs font-medium rounded-full hover:bg-[#A259FF] transition-all duration-300"
               >
                 Start your journey
               </a>
               <a
                 href="/about"
-                className="px-6 py-2.5 bg-white text-[#1a1a1a] text-sm font-medium rounded-full border border-black/10 hover:border-[#A259FF] hover:text-[#A259FF] transition-all duration-300"
+                className="px-4 py-1.5 bg-white text-[#1a1a1a] text-xs font-medium rounded-full border border-black/10 hover:border-[#A259FF] hover:text-[#A259FF] transition-all duration-300"
               >
                 Learn more
               </a>
@@ -381,12 +381,13 @@ export default function Home() {
             <DraggableCardStack />
           </div>
 
-          {/* Bottom gradient veil — covers form + card bottoms */}
+          {/* Bottom gradient veil — sits BELOW cards and form */}
           <div
-            className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
-              height: "42%",
-              background: "linear-gradient(to top, rgba(240,240,245,1) 0%, rgba(240,240,245,0.97) 30%, rgba(240,240,245,0.7) 65%, transparent 100%)",
+              zIndex: 5,
+              height: "48%",
+              background: "linear-gradient(to top, rgba(240,240,245,1) 0%, rgba(240,240,245,0.97) 35%, rgba(240,240,245,0.6) 70%, transparent 100%)",
             }}
           />
 

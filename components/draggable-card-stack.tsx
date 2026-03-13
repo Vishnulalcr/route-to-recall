@@ -238,8 +238,8 @@ export default function DraggableCardStack() {
         ref={stageRef}
         className="relative touch-none"
         style={{
-          width: 280,
-          height: 420,
+          width: 350,
+          height: 525,
           perspective: 1500,
           marginBottom: 32,
           cursor: "grab",
