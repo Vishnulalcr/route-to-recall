@@ -32,11 +32,7 @@ export default function BentoNavigation() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "py-3 bg-white/90 backdrop-blur-md shadow-sm" : "py-5 bg-transparent"
-        }`}
-      >
+      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-white shadow-sm">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo-black.png" alt="Route to Recall" width={120} height={40} className="h-10 w-auto" />

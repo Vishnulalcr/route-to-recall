@@ -243,7 +243,89 @@ export default function Home() {
       <BentoNavigation />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col bg-white">
+      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col" style={{ backgroundColor: "#F5F5F7" }}>
+
+        {/* Animated gradient mesh background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {/* Base soft off-white layer */}
+          <div className="absolute inset-0" style={{ backgroundColor: "#F0F0F5" }} />
+
+          {/* Blue blob - top left */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "55vw",
+              height: "55vw",
+              top: "-15%",
+              left: "-10%",
+              background: "radial-gradient(circle, rgba(0,194,255,0.28) 0%, rgba(0,194,255,0.08) 55%, transparent 75%)",
+              filter: "blur(48px)",
+            }}
+            animate={{ x: [0, 30, -20, 0], y: [0, -25, 15, 0], scale: [1, 1.08, 0.95, 1] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Purple blob - top right */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "50vw",
+              height: "50vw",
+              top: "-5%",
+              right: "-12%",
+              background: "radial-gradient(circle, rgba(162,89,255,0.22) 0%, rgba(162,89,255,0.07) 55%, transparent 75%)",
+              filter: "blur(52px)",
+            }}
+            animate={{ x: [0, -25, 20, 0], y: [0, 20, -30, 0], scale: [1, 0.94, 1.1, 1] }}
+            transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          />
+
+          {/* Turquoise blob - center */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "45vw",
+              height: "45vw",
+              top: "30%",
+              left: "28%",
+              background: "radial-gradient(circle, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0.06) 55%, transparent 75%)",
+              filter: "blur(60px)",
+            }}
+            animate={{ x: [0, 20, -30, 0], y: [0, -20, 25, 0], scale: [1, 1.12, 0.96, 1] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+          />
+
+          {/* Grey blob - bottom left */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "40vw",
+              height: "40vw",
+              bottom: "0%",
+              left: "5%",
+              background: "radial-gradient(circle, rgba(148,163,184,0.22) 0%, rgba(148,163,184,0.07) 55%, transparent 75%)",
+              filter: "blur(44px)",
+            }}
+            animate={{ x: [0, 15, -10, 0], y: [0, -15, 10, 0], scale: [1, 1.05, 0.98, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          />
+
+          {/* Blue-purple mix blob - bottom right */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "42vw",
+              height: "42vw",
+              bottom: "5%",
+              right: "0%",
+              background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, rgba(0,194,255,0.08) 50%, transparent 72%)",
+              filter: "blur(56px)",
+            }}
+            animate={{ x: [0, -20, 15, 0], y: [0, 18, -22, 0], scale: [1, 1.07, 0.93, 1] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 9 }}
+          />
+        </div>
+
         <div className="relative z-10 flex-1 flex flex-col">
           {/* Hero Title - Fixed at top */}
           <motion.div
