@@ -326,9 +326,9 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 w-full flex flex-col" style={{ minHeight: "100vh" }}>
+        <div className="relative z-10 w-full flex flex-col pb-10">
 
-          {/* Hero Title block — upper portion */}
+          {/* Hero Title block */}
           <motion.div
             className="flex flex-col items-center text-center px-6 pt-36 md:pt-44 pb-4"
             style={{ y: headerY, opacity: headerOpacity }}
@@ -376,23 +376,13 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Cards */}
-          <div className="flex-1 flex items-end justify-center pb-4 md:pb-10 relative z-10 mt-12 md:mt-16">
+          {/* Cards — always in normal document flow, never overlapped */}
+          <div className="flex justify-center mt-12 md:mt-16 relative z-10">
             <DraggableCardStack />
           </div>
 
-          {/* Bottom gradient veil — sits BELOW cards and form, desktop only */}
-          <div
-            className="hidden md:block absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{
-              zIndex: 5,
-              height: "48%",
-              background: "linear-gradient(to top, rgba(240,240,245,1) 0%, rgba(240,240,245,0.97) 35%, rgba(240,240,245,0.6) 70%, transparent 100%)",
-            }}
-          />
-
-          {/* Enquiry form — in normal flow on mobile, absolute at bottom on desktop */}
-          <div className="relative md:absolute md:bottom-0 md:left-0 md:right-0 z-30 pb-6 md:pb-10 mt-0 md:mt-0">
+          {/* Enquiry form — always in normal flow, always below cards */}
+          <div className="relative z-10 mt-8 md:mt-10">
             <HeroEnquiryForm isOpen={true} formOpacity={formOpacity} formY={formY} />
           </div>
 

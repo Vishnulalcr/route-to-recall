@@ -247,10 +247,16 @@ export default function DraggableCardStack() {
       >
         <style>{`
           :root {
-            --card-w: 297px;
-            --card-h: 446px;
+            --card-w: 280px;
+            --card-h: 420px;
           }
-          @media (min-width: 768px) {
+          @media (min-width: 640px) {
+            :root {
+              --card-w: 320px;
+              --card-h: 480px;
+            }
+          }
+          @media (min-width: 1024px) {
             :root {
               --card-w: 350px;
               --card-h: 525px;
