@@ -168,10 +168,13 @@ html {
 .rounded-lg { border-radius: var(--radius); }
 .rounded-xl { border-radius: calc(var(--radius) + 4px); }
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
+@theme inline {
+  --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+}
 
 .font-serif {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   letter-spacing: -0.02em;
 }
 
@@ -258,18 +261,17 @@ img {
 .shimmer-hero-text {
   background: linear-gradient(
     90deg,
-    rgba(147, 51, 234, 0.9) 0%,
-    rgba(147, 51, 234, 0.9) 40%,
+    #6d28d9 0%,
+    #6d28d9 35%,
     #a855f7 50%,
-    rgba(147, 51, 234, 0.9) 60%,
-    rgba(147, 51, 234, 0.9) 100%
+    #6d28d9 65%,
+    #6d28d9 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation: shimmer-hero 3s infinite linear;
-  text-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
 }
 
 @keyframes shimmer-hero {

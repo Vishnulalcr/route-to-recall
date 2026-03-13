@@ -1,14 +1,15 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Plus_Jakarta_Sans } from "next/font/google"
 import ScrollToTop from "@/components/scroll-to-top"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/json-ld"
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800"],
 })
 
 export const metadata: Metadata = {
@@ -116,8 +117,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${plusJakartaSans.variable}`}>
+      <body className={plusJakartaSans.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <ScrollToTop />

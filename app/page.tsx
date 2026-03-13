@@ -243,65 +243,159 @@ export default function Home() {
       <BentoNavigation />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col bg-white">
-        <div className="relative z-10 flex-1 flex flex-col">
-          {/* Hero Title - Fixed at top */}
+      <section ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col" style={{ backgroundColor: "#F5F5F7" }}>
+
+        {/* Animated gradient mesh background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {/* Base soft off-white layer */}
+          <div className="absolute inset-0" style={{ backgroundColor: "#F0F0F5" }} />
+
+          {/* Blue blob - top left */}
           <motion.div
-            className="pt-24 md:pt-32 px-4 flex-shrink-0 mt-[50px]"
+            className="absolute rounded-full"
+            style={{
+              width: "55vw",
+              height: "55vw",
+              top: "-15%",
+              left: "-10%",
+              background: "radial-gradient(circle, rgba(0,194,255,0.28) 0%, rgba(0,194,255,0.08) 55%, transparent 75%)",
+              filter: "blur(48px)",
+            }}
+            animate={{ x: [0, 30, -20, 0], y: [0, -25, 15, 0], scale: [1, 1.08, 0.95, 1] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Purple blob - top right */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "50vw",
+              height: "50vw",
+              top: "-5%",
+              right: "-12%",
+              background: "radial-gradient(circle, rgba(162,89,255,0.22) 0%, rgba(162,89,255,0.07) 55%, transparent 75%)",
+              filter: "blur(52px)",
+            }}
+            animate={{ x: [0, -25, 20, 0], y: [0, 20, -30, 0], scale: [1, 0.94, 1.1, 1] }}
+            transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          />
+
+          {/* Turquoise blob - center */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "45vw",
+              height: "45vw",
+              top: "30%",
+              left: "28%",
+              background: "radial-gradient(circle, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0.06) 55%, transparent 75%)",
+              filter: "blur(60px)",
+            }}
+            animate={{ x: [0, 20, -30, 0], y: [0, -20, 25, 0], scale: [1, 1.12, 0.96, 1] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+          />
+
+          {/* Grey blob - bottom left */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "40vw",
+              height: "40vw",
+              bottom: "0%",
+              left: "5%",
+              background: "radial-gradient(circle, rgba(148,163,184,0.22) 0%, rgba(148,163,184,0.07) 55%, transparent 75%)",
+              filter: "blur(44px)",
+            }}
+            animate={{ x: [0, 15, -10, 0], y: [0, -15, 10, 0], scale: [1, 1.05, 0.98, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          />
+
+          {/* Blue-purple mix blob - bottom right */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: "42vw",
+              height: "42vw",
+              bottom: "5%",
+              right: "0%",
+              background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, rgba(0,194,255,0.08) 50%, transparent 72%)",
+              filter: "blur(56px)",
+            }}
+            animate={{ x: [0, -20, 15, 0], y: [0, 18, -22, 0], scale: [1, 1.07, 0.93, 1] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 9 }}
+          />
+        </div>
+
+        <div className="relative z-10 w-full flex flex-col" style={{ minHeight: "100vh" }}>
+
+          {/* Hero Title block — upper portion */}
+          <motion.div
+            className="flex flex-col items-center text-center px-6 pt-36 md:pt-44 pb-4"
             style={{ y: headerY, opacity: headerOpacity }}
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter text-center max-w-4xl uppercase shimmer-hero-text mx-auto text-purple-600">
-              Where every Journey Turns into Stories
+            {/* Eyebrow label */}
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#A259FF]/10 text-[#7C3AED] text-xs font-medium tracking-widest uppercase mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Experiential Travel
+            </motion.span>
+
+            <h1 className="text-4xl sm:text-5xl md:text-[3.75rem] font-semibold leading-[1.1] tracking-tight text-[#1a1a1a] max-w-2xl mb-5">
+              Where every journey turns into stories
             </h1>
+
+            <p className="text-[#6B7280] text-base md:text-lg max-w-md leading-relaxed mb-8">
+              Handcrafted travel experiences across Asia's most extraordinary destinations.
+            </p>
+
+            {/* CTA buttons */}
+            <motion.div
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <a
+                href="/destinations"
+                className="px-4 py-1.5 bg-[#1a1a1a] text-white text-xs font-medium rounded-full hover:bg-[#A259FF] transition-all duration-300"
+              >
+                Start your journey
+              </a>
+              <a
+                href="/about"
+                className="px-4 py-1.5 bg-white text-[#1a1a1a] text-xs font-medium rounded-full border border-black/10 hover:border-[#A259FF] hover:text-[#A259FF] transition-all duration-300"
+              >
+                Learn more
+              </a>
+            </motion.div>
           </motion.div>
 
-          <div className="flex-1 relative min-h-[250px] sm:min-h-[350px] md:min-h-[500px] flex items-center justify-center -mt-[250px] md:-mt-[100px]">
+          {/* Cards — rising from bottom */}
+          <div className="flex-1 flex items-end justify-center pb-36 md:pb-40 relative z-10 mt-12 md:mt-16">
             <DraggableCardStack />
           </div>
 
-          <motion.div
-            className="relative z-20 w-full pb-4 md:pb-8 flex-shrink-0 -mt-[150px] md:mt-0 md:absolute md:bottom-0 md:left-0 md:right-0"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
+          {/* Bottom gradient veil — sits BELOW cards and form */}
+          <div
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
-              opacity: formOpacity,
-              y: formY,
+              zIndex: 5,
+              height: "48%",
+              background: "linear-gradient(to top, rgba(240,240,245,1) 0%, rgba(240,240,245,0.97) 35%, rgba(240,240,245,0.6) 70%, transparent 100%)",
             }}
-          >
-            {/* Mobile toggle button */}
-            <div className="flex justify-center mb-3 px-4 md:hidden -mt-[100px]">
-              <button
-                onClick={() => setIsMobileFormOpen(!isMobileFormOpen)}
-                className="flex items-center gap-2 px-6 py-3 bg-black/5 hover:bg-black/10 rounded-full border border-black/10 transition-all"
-              >
-                <span className="text-[#1C1C1C] font-medium text-sm">
-                  {isMobileFormOpen ? "Hide Form" : "Plan Your Trip"}
-                </span>
-                <motion.svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  animate={{ rotate: isMobileFormOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="#1C1C1C"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </motion.svg>
-              </button>
-            </div>
+          />
 
-            <HeroEnquiryForm isOpen={isMobileFormOpen} formOpacity={formOpacity} formY={formY} />
-          </motion.div>
+          {/* Enquiry form — anchored at very bottom, inside gradient veil */}
+          <div className="absolute bottom-0 left-0 right-0 z-30 pb-6 md:pb-10">
+            <HeroEnquiryForm isOpen={true} formOpacity={formOpacity} formY={formY} />
+          </div>
+
         </div>
 
       </section>
@@ -318,7 +412,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground">Find your next Holiday</h2>
+            <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-foreground tracking-tight">Find your next Holiday</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Explore our handcrafted travel plans for an unforgettable experiences and breathtaking landscapes
             </p>
@@ -338,7 +432,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-4 md:mb-6 text-foreground">
+            <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-foreground tracking-tight">
               Curated experiences
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg px-4">
