@@ -1,19 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { type FormType, type EmailData, getEmailSubject, getEmailHtml } from "@/lib/email-templates"
 
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const record = rateLimitStore.get(ip)
-  if (!record || now > record.resetTime) {
-    rateLimitStore.set(ip, { count: 1, resetTime: now + 60 * 60 * 1000 })
-    return false
-  }
-  if (record.count >= 5) return true
-  record.count++
-  return false
-}
 
 function sanitize(input: string): string {
   if (typeof input !== "string") return ""
@@ -25,12 +13,11 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 export async function POST(request: NextRequest) {
   try {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown"
-    if (isRateLimited(ip)) {
-      return NextResponse.json({ success: false, error: "Too many requests. Please try again later." }, { status: 429 })
-    }
+    console.log("[v0] send-email called from ip:", ip)
 
     const body = await request.json()
     const { formType, ...formData } = body as { formType: FormType } & Record<string, string>
+    console.log("[v0] formType:", formType, "fields:", Object.keys(formData))
 
     // Honeypot
     if (formData.website) {
@@ -87,12 +74,18 @@ export async function POST(request: NextRequest) {
     const responseText = await brevoRes.text()
 
     if (!brevoRes.ok) {
-      console.error("[v0] Brevo error", brevoRes.status, responseText)
+      console.error("[v0] Brevo error status:", brevoRes.status)
+      console.error("[v0] Brevo error body:", responseText)
+      console.error("[v0] Brevo api key prefix:", apiKey.substring(0, 12))
+      console.error("[v0] Brevo sender email:", senderEmail)
+      console.error("[v0] Brevo contact email:", contactEmail)
       return NextResponse.json(
         { success: false, error: "Failed to send. Please try again or email us at enquiries@routetorecall.com" },
         { status: 500 }
       )
     }
+
+    console.log("[v0] Brevo success:", responseText)
 
     const messages: Record<FormType, string> = {
       "quick-contact": "Thank you! We will get back to you within 24 hours.",
