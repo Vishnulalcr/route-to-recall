@@ -1,40 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
+import { Resend } from "resend"
 import { getEmailSubject, getEmailHtml } from "@/lib/email-templates"
-
-async function sendBrevoEmail(params: {
-  senderEmail: string
-  senderName: string
-  toEmail: string
-  toName: string
-  replyToEmail: string
-  replyToName: string
-  subject: string
-  htmlContent: string
-}) {
-  const apiKey = process.env.BREVO_API_KEY
-  if (!apiKey) throw new Error("BREVO_API_KEY is not configured")
-
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      "accept": "application/json",
-      "api-key": apiKey,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      sender: { name: params.senderName, email: params.senderEmail },
-      to: [{ email: params.toEmail, name: params.toName }],
-      replyTo: { email: params.replyToEmail, name: params.replyToName },
-      subject: params.subject,
-      htmlContent: params.htmlContent,
-    }),
-  })
-  if (!res.ok) {
-    const errBody = await res.text()
-    throw new Error(`Brevo API error ${res.status}: ${errBody}`)
-  }
-  return res.json()
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -57,6 +23,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return NextResponse.json({ error: "Email service is not configured" }, { status: 500 })
+    }
+
     const emailSubject = getEmailSubject("quote-request", {
       name, email, phone, destination, travelers, dates, message,
     })
@@ -64,19 +35,22 @@ export async function POST(request: NextRequest) {
       name, email, phone, destination, travelers, dates, message,
     })
 
-    const senderEmail = process.env.SENDER_EMAIL || "noreply@routetorecall.com"
+    const senderEmail = process.env.SENDER_EMAIL || "onboarding@resend.dev"
     const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    await sendBrevoEmail({
-      senderEmail,
-      senderName: "Route to Recall",
-      toEmail: contactEmail,
-      toName: "Route to Recall Enquiries",
-      replyToEmail: email,
-      replyToName: name,
+    const resend = new Resend(apiKey)
+    const { error } = await resend.emails.send({
+      from: `Route to Recall <${senderEmail}>`,
+      to: [contactEmail],
+      reply_to: `${name} <${email}>`,
       subject: emailSubject,
-      htmlContent: html,
+      html,
     })
+
+    if (error) {
+      console.error("[v0] Resend enquiry error:", error)
+      return NextResponse.json({ error: "Failed to send enquiry. Please try again." }, { status: 500 })
+    }
 
     return NextResponse.json(
       { success: true, message: "Thank you for your enquiry! We will get back to you within 24 hours." },
