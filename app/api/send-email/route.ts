@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
 import {
   type FormType,
   type EmailData,
@@ -32,6 +31,42 @@ function sanitizeInput(input: string): string {
   return input.trim().slice(0, 5000).replace(/[<>]/g, "")
 }
 
+async function sendBrevoEmail(params: {
+  toEmail: string
+  toName: string
+  replyToEmail: string
+  replyToName: string
+  subject: string
+  htmlContent: string
+}) {
+  const apiKey = process.env.BREVO_API_KEY
+  if (!apiKey) throw new Error("BREVO_API_KEY is not configured")
+
+  const senderEmail = process.env.SENDER_EMAIL || "enquiries@routetorecall.com"
+
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "api-key": apiKey,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      sender: { name: "Route to Recall", email: senderEmail },
+      to: [{ email: params.toEmail, name: params.toName }],
+      replyTo: { email: params.replyToEmail, name: params.replyToName },
+      subject: params.subject,
+      htmlContent: params.htmlContent,
+    }),
+  })
+
+  if (!res.ok) {
+    const errBody = await res.text()
+    throw new Error(`Brevo API error ${res.status}: ${errBody}`)
+  }
+  return res.json()
+}
+
 export async function POST(request: NextRequest) {
   try {
     const forwardedFor = request.headers.get("x-forwarded-for")
@@ -48,7 +83,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { formType, ...formData } = body as { formType: FormType } & EmailData
 
-    // Honeypot
     if ((formData as any).website) {
       return NextResponse.json({ success: true, message: "Thank you for your submission!" }, { status: 200 })
     }
@@ -98,43 +132,21 @@ export async function POST(request: NextRequest) {
       ;(sanitizedData as any).message = sanitizeInput(formData.message || "")
     }
 
-    const apiKey = process.env.RESEND_API_KEY
-    if (!apiKey) {
-      console.error("[v0] RESEND_API_KEY is not set")
-      return NextResponse.json(
-        { success: false, error: "Email service is not configured." },
-        { status: 500 }
-      )
-    }
-
     const subject = getEmailSubject(formType, sanitizedData)
     const html = getEmailHtml(formType, sanitizedData)
+    const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    // Send confirmation to the enquirer's own email — always deliverable on Resend free tier.
-    // The enquirer's details are in reply_to so the team can reply directly.
-    const submitterEmail = (sanitizedData as any).email as string
-
-    const resend = new Resend(apiKey)
-    const { data: sendData, error: sendError } = await resend.emails.send({
-      from: "Route to Recall <onboarding@resend.dev>",
-      to: [submitterEmail],
-      reply_to: "enquiries@routetorecall.com",
-      subject: `[Route to Recall] We received your enquiry — ${subject}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px">
-          <h2 style="color:#1C1C1C">Thank you, ${(sanitizedData as any).name}!</h2>
-          <p style="color:#444">We have received your enquiry and our team will get back to you within 24 hours.</p>
-          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
-          <h3 style="color:#1C1C1C">Your submission details:</h3>
-          ${html}
-          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
-          <p style="color:#888;font-size:13px">Route to Recall — Experiential Travel | enquiries@routetorecall.com</p>
-        </div>
-      `,
-    })
-
-    if (sendError) {
-      console.error("[v0] Resend error:", JSON.stringify(sendError))
+    try {
+      await sendBrevoEmail({
+        toEmail: contactEmail,
+        toName: "Route to Recall Enquiries",
+        replyToEmail: (sanitizedData as any).email,
+        replyToName: (sanitizedData as any).name,
+        subject,
+        htmlContent: html,
+      })
+    } catch (emailError: any) {
+      console.error("[v0] Brevo send error:", emailError?.message)
       return NextResponse.json(
         { success: false, error: "Failed to send email. Please try again later." },
         { status: 500 }

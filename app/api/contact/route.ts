@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
 import { getEmailSubject, getEmailHtml } from "@/lib/email-templates"
 
 export async function POST(request: NextRequest) {
@@ -23,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
-    const apiKey = process.env.RESEND_API_KEY
+    const apiKey = process.env.BREVO_API_KEY
     if (!apiKey) {
       return NextResponse.json({ error: "Email service is not configured" }, { status: 500 })
     }
@@ -31,28 +30,28 @@ export async function POST(request: NextRequest) {
     const emailSubject = getEmailSubject("contact", { name, email, phone, subject, message })
     const html = getEmailHtml("contact", { name, email, phone, subject, message })
 
-    const contactEmail = process.env.CONTACT_EMAIL || "delivered@resend.dev"
+    const senderEmail = process.env.SENDER_EMAIL || "enquiries@routetorecall.com"
+    const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    const resend = new Resend(apiKey)
-    const { error } = await resend.emails.send({
-      from: "Route to Recall <onboarding@resend.dev>",
-      to: [email],
-      reply_to: "enquiries@routetorecall.com",
-      subject: `[Route to Recall] We received your message — ${emailSubject}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px">
-          <h2 style="color:#1C1C1C">Thank you, ${name}!</h2>
-          <p style="color:#444">We have received your message and our team will get back to you shortly.</p>
-          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
-          ${html}
-          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
-          <p style="color:#888;font-size:13px">Route to Recall — Experiential Travel | enquiries@routetorecall.com</p>
-        </div>
-      `,
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "api-key": apiKey,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: { name: "Route to Recall", email: senderEmail },
+        to: [{ email: contactEmail, name: "Route to Recall Enquiries" }],
+        replyTo: { email, name },
+        subject: emailSubject,
+        htmlContent: html,
+      }),
     })
 
-    if (error) {
-      console.error("[v0] Resend contact error:", error)
+    if (!res.ok) {
+      const errBody = await res.text()
+      console.error("[v0] Brevo contact error:", errBody)
       return NextResponse.json({ error: "Failed to send message. Please try again." }, { status: 500 })
     }
 
