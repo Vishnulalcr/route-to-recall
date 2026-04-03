@@ -40,9 +40,24 @@ async function sendBrevoEmail(params: {
   htmlContent: string
 }) {
   const apiKey = process.env.BREVO_API_KEY
-  if (!apiKey) throw new Error("BREVO_API_KEY is not configured")
+  if (!apiKey) throw new Error("BREVO_API_KEY is not set")
 
+  // Use the contact email as sender if set, otherwise fall back to a safe default.
+  // IMPORTANT: The sender email MUST be verified in your Brevo account
+  // (Brevo dashboard → Senders & IPs → Senders → Add a sender).
+  // If SENDER_EMAIL is not verified, Brevo will reject the request with 400.
   const senderEmail = process.env.SENDER_EMAIL || "enquiries@routetorecall.com"
+  const senderName = "Route to Recall"
+
+  const payload = {
+    sender: { name: senderName, email: senderEmail },
+    to: [{ email: params.toEmail, name: params.toName }],
+    replyTo: { email: params.replyToEmail, name: params.replyToName },
+    subject: params.subject,
+    htmlContent: params.htmlContent,
+  }
+
+  console.log("[v0] Brevo payload:", JSON.stringify({ ...payload, htmlContent: "[truncated]" }))
 
   const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -51,20 +66,18 @@ async function sendBrevoEmail(params: {
       "api-key": apiKey,
       "content-type": "application/json",
     },
-    body: JSON.stringify({
-      sender: { name: "Route to Recall", email: senderEmail },
-      to: [{ email: params.toEmail, name: params.toName }],
-      replyTo: { email: params.replyToEmail, name: params.replyToName },
-      subject: params.subject,
-      htmlContent: params.htmlContent,
-    }),
+    body: JSON.stringify(payload),
   })
 
+  const responseText = await res.text()
+  console.log("[v0] Brevo response status:", res.status)
+  console.log("[v0] Brevo response body:", responseText)
+
   if (!res.ok) {
-    const errBody = await res.text()
-    throw new Error(`Brevo API error ${res.status}: ${errBody}`)
+    throw new Error(`Brevo API error ${res.status}: ${responseText}`)
   }
-  return res.json()
+
+  return JSON.parse(responseText)
 }
 
 export async function POST(request: NextRequest) {
@@ -81,8 +94,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log("[v0] Received form body:", JSON.stringify({ ...body, email: body.email ? "[redacted]" : undefined }))
+
     const { formType, ...formData } = body as { formType: FormType } & EmailData
 
+    // Honeypot
     if ((formData as any).website) {
       return NextResponse.json({ success: true, message: "Thank you for your submission!" }, { status: 200 })
     }
@@ -103,55 +119,44 @@ export async function POST(request: NextRequest) {
     }
     ;(sanitizedData as any).email = sanitizeInput(formData.email)
 
-    if (!formData.phone || typeof formData.phone !== "string") {
-      return NextResponse.json({ success: false, error: "Phone number is required" }, { status: 400 })
-    }
-    ;(sanitizedData as any).phone = sanitizeInput(formData.phone)
+    ;(sanitizedData as any).phone = sanitizeInput((formData as any).phone || "Not provided")
 
     if (formType === "quick-contact") {
-      if (!formData.destination) {
+      if (!(formData as any).destination) {
         return NextResponse.json({ success: false, error: "Destination is required" }, { status: 400 })
       }
-      ;(sanitizedData as any).destination = sanitizeInput(formData.destination)
+      ;(sanitizedData as any).destination = sanitizeInput((formData as any).destination)
     } else if (formType === "contact") {
-      if (!formData.subject) {
+      if (!(formData as any).subject) {
         return NextResponse.json({ success: false, error: "Subject is required" }, { status: 400 })
       }
-      if (!formData.message) {
+      if (!(formData as any).message) {
         return NextResponse.json({ success: false, error: "Message is required" }, { status: 400 })
       }
-      ;(sanitizedData as any).subject = sanitizeInput(formData.subject)
-      ;(sanitizedData as any).message = sanitizeInput(formData.message)
+      ;(sanitizedData as any).subject = sanitizeInput((formData as any).subject)
+      ;(sanitizedData as any).message = sanitizeInput((formData as any).message)
     } else if (formType === "quote-request") {
-      if (!formData.destination) {
+      if (!(formData as any).destination) {
         return NextResponse.json({ success: false, error: "Destination is required" }, { status: 400 })
       }
-      ;(sanitizedData as any).destination = sanitizeInput(formData.destination)
-      ;(sanitizedData as any).travelers = sanitizeInput(formData.travelers || "Not specified")
-      ;(sanitizedData as any).dates = sanitizeInput(formData.dates || "Flexible")
-      ;(sanitizedData as any).message = sanitizeInput(formData.message || "")
+      ;(sanitizedData as any).destination = sanitizeInput((formData as any).destination)
+      ;(sanitizedData as any).travelers = sanitizeInput((formData as any).travelers || "Not specified")
+      ;(sanitizedData as any).dates = sanitizeInput((formData as any).dates || "Flexible")
+      ;(sanitizedData as any).message = sanitizeInput((formData as any).message || "")
     }
 
     const subject = getEmailSubject(formType, sanitizedData)
     const html = getEmailHtml(formType, sanitizedData)
     const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    try {
-      await sendBrevoEmail({
-        toEmail: contactEmail,
-        toName: "Route to Recall Enquiries",
-        replyToEmail: (sanitizedData as any).email,
-        replyToName: (sanitizedData as any).name,
-        subject,
-        htmlContent: html,
-      })
-    } catch (emailError: any) {
-      console.error("[v0] Brevo send error:", emailError?.message)
-      return NextResponse.json(
-        { success: false, error: "Failed to send email. Please try again later." },
-        { status: 500 }
-      )
-    }
+    await sendBrevoEmail({
+      toEmail: contactEmail,
+      toName: "Route to Recall Enquiries",
+      replyToEmail: (sanitizedData as any).email,
+      replyToName: (sanitizedData as any).name,
+      subject,
+      htmlContent: html,
+    })
 
     const successMessages: Record<FormType, string> = {
       "quick-contact": "Thank you for your inquiry! We'll get back to you within 24 hours.",
@@ -164,7 +169,10 @@ export async function POST(request: NextRequest) {
       { status: 200, headers: { "X-RateLimit-Remaining": remaining.toString() } }
     )
   } catch (error: any) {
-    console.error("[v0] Email API unexpected error:", error?.message)
-    return NextResponse.json({ success: false, error: "An unexpected error occurred." }, { status: 500 })
+    console.error("[v0] Email API error:", error?.message)
+    return NextResponse.json(
+      { success: false, error: "Failed to send. Please try again or contact us directly at enquiries@routetorecall.com" },
+      { status: 500 }
+    )
   }
 }
