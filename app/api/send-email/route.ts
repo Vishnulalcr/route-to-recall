@@ -110,16 +110,27 @@ export async function POST(request: NextRequest) {
     const subject = getEmailSubject(formType, sanitizedData)
     const html = getEmailHtml(formType, sanitizedData)
 
-    // CONTACT_EMAIL must be a Resend-verified address or resend.dev test address
-    const contactEmail = process.env.CONTACT_EMAIL || "delivered@resend.dev"
+    // Send confirmation to the enquirer's own email — always deliverable on Resend free tier.
+    // The enquirer's details are in reply_to so the team can reply directly.
+    const submitterEmail = (sanitizedData as any).email as string
 
     const resend = new Resend(apiKey)
     const { data: sendData, error: sendError } = await resend.emails.send({
       from: "Route to Recall <onboarding@resend.dev>",
-      to: [contactEmail],
-      reply_to: `${(sanitizedData as any).name} <${(sanitizedData as any).email}>`,
-      subject,
-      html,
+      to: [submitterEmail],
+      reply_to: "enquiries@routetorecall.com",
+      subject: `[Route to Recall] We received your enquiry — ${subject}`,
+      html: `
+        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px">
+          <h2 style="color:#1C1C1C">Thank you, ${(sanitizedData as any).name}!</h2>
+          <p style="color:#444">We have received your enquiry and our team will get back to you within 24 hours.</p>
+          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
+          <h3 style="color:#1C1C1C">Your submission details:</h3>
+          ${html}
+          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
+          <p style="color:#888;font-size:13px">Route to Recall — Experiential Travel | enquiries@routetorecall.com</p>
+        </div>
+      `,
     })
 
     if (sendError) {

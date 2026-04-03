@@ -36,10 +36,19 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(apiKey)
     const { error } = await resend.emails.send({
       from: "Route to Recall <onboarding@resend.dev>",
-      to: [contactEmail],
-      reply_to: `${name} <${email}>`,
-      subject: emailSubject,
-      html,
+      to: [email],
+      reply_to: "enquiries@routetorecall.com",
+      subject: `[Route to Recall] We received your message — ${emailSubject}`,
+      html: `
+        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px">
+          <h2 style="color:#1C1C1C">Thank you, ${name}!</h2>
+          <p style="color:#444">We have received your message and our team will get back to you shortly.</p>
+          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
+          ${html}
+          <hr style="border:none;border-top:1px solid #eee;margin:24px 0"/>
+          <p style="color:#888;font-size:13px">Route to Recall — Experiential Travel | enquiries@routetorecall.com</p>
+        </div>
+      `,
     })
 
     if (error) {

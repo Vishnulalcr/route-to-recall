@@ -120,6 +120,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable}`}>
+      <head>
+        <link rel="icon" type="image/png" href="/logo-black.png" />
+        <link rel="shortcut icon" type="image/png" href="/logo-black.png" />
+        <link rel="apple-touch-icon" href="/logo-black.png" />
+      </head>
       <body className={plusJakartaSans.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
