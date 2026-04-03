@@ -31,12 +31,11 @@ export async function POST(request: NextRequest) {
     const emailSubject = getEmailSubject("contact", { name, email, phone, subject, message })
     const html = getEmailHtml("contact", { name, email, phone, subject, message })
 
-    const senderEmail = process.env.SENDER_EMAIL || "onboarding@resend.dev"
-    const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
+    const contactEmail = process.env.CONTACT_EMAIL || "delivered@resend.dev"
 
     const resend = new Resend(apiKey)
     const { error } = await resend.emails.send({
-      from: `Route to Recall <${senderEmail}>`,
+      from: "Route to Recall <onboarding@resend.dev>",
       to: [contactEmail],
       reply_to: `${name} <${email}>`,
       subject: emailSubject,
