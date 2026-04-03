@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import * as Brevo from "@getbrevo/brevo"
 import {
   type FormType,
   type EmailData,
@@ -7,19 +6,40 @@ import {
   getEmailHtml,
 } from "@/lib/email-templates"
 
-// Initialize Brevo API client
-let apiInstance: Brevo.TransactionalEmailsApi | null = null
+async function sendBrevoEmail(params: {
+  senderEmail: string
+  senderName: string
+  toEmail: string
+  toName: string
+  replyToEmail: string
+  replyToName: string
+  subject: string
+  htmlContent: string
+}) {
+  const apiKey = process.env.BREVO_API_KEY
+  if (!apiKey) throw new Error("BREVO_API_KEY is not configured")
 
-function getBrevoClient(): Brevo.TransactionalEmailsApi {
-  if (!apiInstance) {
-    const apiKey = process.env.BREVO_API_KEY
-    if (!apiKey) {
-      throw new Error("BREVO_API_KEY is not configured")
-    }
-    apiInstance = new Brevo.TransactionalEmailsApi()
-    apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey)
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "accept": "application/json",
+      "api-key": apiKey,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      sender: { name: params.senderName, email: params.senderEmail },
+      to: [{ email: params.toEmail, name: params.toName }],
+      replyTo: { email: params.replyToEmail, name: params.replyToName },
+      subject: params.subject,
+      htmlContent: params.htmlContent,
+    }),
+  })
+
+  if (!res.ok) {
+    const errBody = await res.text()
+    throw new Error(`Brevo API error ${res.status}: ${errBody}`)
   }
-  return apiInstance
+  return res.json()
 }
 
 // Rate limiting store (in production, use Redis or similar)
@@ -184,88 +204,35 @@ export async function POST(request: NextRequest) {
     const subject = getEmailSubject(formType, sanitizedData)
     const html = getEmailHtml(formType, sanitizedData)
 
-    console.log("[v0] Email subject:", subject)
-
-    // Get Brevo client (will throw if not configured)
-    let brevoClient: Brevo.TransactionalEmailsApi
-    try {
-      brevoClient = getBrevoClient()
-      console.log("[v0] Brevo client initialized successfully")
-    } catch (err) {
-      console.error("[v0] BREVO_API_KEY is not configured:", err)
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Email service is not configured. Please contact support.",
-        },
-        { status: 500 }
-      )
-    }
-
-    // Prepare email data for Brevo
     const senderEmail = process.env.SENDER_EMAIL || "noreply@routetorecall.com"
     const contactEmail = process.env.CONTACT_EMAIL || "enquiries@routetorecall.com"
 
-    const sendSmtpEmail: Brevo.SendSmtpEmail = {
-      sender: {
-        name: "Route to Recall",
-        email: senderEmail,
-      },
-      to: [
-        {
-          email: contactEmail,
-          name: "Route to Recall Enquiries",
-        },
-      ],
-      replyTo: {
-        email: (sanitizedData as any).email,
-        name: (sanitizedData as any).name,
-      },
-      subject: subject,
-      htmlContent: html,
-    }
-
-    console.log("[v0] Sending email via Brevo...")
-    console.log("[v0] From:", senderEmail)
-    console.log("[v0] To:", contactEmail)
-    console.log("[v0] Reply-To:", (sanitizedData as any).email)
-
-    // Send email via Brevo
     try {
-      const result = await brevoClient.sendTransacEmail(sendSmtpEmail)
-      console.log("[v0] Brevo email sent successfully:", JSON.stringify(result, null, 2))
+      await sendBrevoEmail({
+        senderEmail,
+        senderName: "Route to Recall",
+        toEmail: contactEmail,
+        toName: "Route to Recall Enquiries",
+        replyToEmail: (sanitizedData as any).email,
+        replyToName: (sanitizedData as any).name,
+        subject,
+        htmlContent: html,
+      })
 
-      // Success response
       const successMessages: Record<FormType, string> = {
-        "quick-contact":
-          "Thank you for your inquiry! We'll get back to you within 24 hours.",
-        contact:
-          "Thank you for your message! Our team will respond shortly.",
-        "quote-request":
-          "Thank you for your quote request! We'll prepare a customized itinerary for you.",
+        "quick-contact": "Thank you for your inquiry! We'll get back to you within 24 hours.",
+        contact: "Thank you for your message! Our team will respond shortly.",
+        "quote-request": "Thank you for your quote request! We'll prepare a customized itinerary for you.",
       }
 
       return NextResponse.json(
-        {
-          success: true,
-          message: successMessages[formType],
-          messageId: (result as any)?.messageId || "sent",
-        },
-        {
-          status: 200,
-          headers: {
-            "X-RateLimit-Remaining": remaining.toString(),
-          },
-        }
+        { success: true, message: successMessages[formType] },
+        { status: 200, headers: { "X-RateLimit-Remaining": remaining.toString() } }
       )
     } catch (emailError: any) {
-      console.error("[v0] Brevo API error:", emailError)
-      console.error("[v0] Brevo error response:", emailError?.response?.body || emailError?.message)
+      console.error("[v0] Brevo send error:", emailError?.message)
       return NextResponse.json(
-        {
-          success: false,
-          error: "Failed to send email. Please try again later.",
-        },
+        { success: false, error: "Failed to send email. Please try again later." },
         { status: 500 }
       )
     }

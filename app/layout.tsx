@@ -51,12 +51,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon-dark-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo-black.png", type: "image/png", sizes: "any" },
+      { url: "/logo-black.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo-black.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/logo-black.png", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: "/logo-black.png",
   },
   manifest: "/site.webmanifest",
   openGraph: {
