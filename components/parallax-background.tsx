@@ -20,7 +20,7 @@ export default function ParallaxBackground() {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end start"]
   })
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 300])

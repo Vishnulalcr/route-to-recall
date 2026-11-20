@@ -50,15 +50,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [
-      { url: "/logo-white.png?v=2", type: "image/png", sizes: "any" },
-      { url: "/logo-white.png?v=2", sizes: "32x32", type: "image/png" },
-      { url: "/logo-white.png?v=2", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [
-      { url: "/logo-white.png?v=2", sizes: "180x180", type: "image/png" },
-    ],
-    shortcut: "/logo-white.png?v=2",
+    icon: [{ url: "/route-to-recall-favicon.svg", type: "image/svg+xml", sizes: "any" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+    shortcut: "/route-to-recall-favicon.svg",
   },
   manifest: "/site.webmanifest",
   openGraph: {
@@ -120,11 +114,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable}`}>
-      <head>
-        <link rel="icon" type="image/png" href="/logo-white.png?v=2" />
-        <link rel="shortcut icon" type="image/png" href="/logo-white.png?v=2" />
-        <link rel="apple-touch-icon" href="/logo-white.png?v=2" />
-      </head>
       <body className={plusJakartaSans.className}>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
