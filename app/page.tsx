@@ -17,7 +17,7 @@ import HeroEnquiryForm from "@/components/hero-enquiry-form"
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const aboutRef = useRef<HTMLDivElement>(null)
+  const aboutRef = useRef<HTMLElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -538,7 +538,7 @@ export default function Home() {
       <TestimonialsMasonry />
 
       {/* About Us Section */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-muted text-foreground">
+      <section ref={aboutRef} className="py-16 md:py-32 relative overflow-hidden bg-muted text-foreground">
         {/* Background elements */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488085061385-50cf7c579365?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5"></div>
 
