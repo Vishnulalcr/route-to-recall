@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1024x1024" }],
-    apple: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1024x1024" }],
+    icon: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1017x1017" }],
+    apple: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1017x1017" }],
     shortcut: "/route-to-recall-favicon.png",
   },
   manifest: "/site.webmanifest",
