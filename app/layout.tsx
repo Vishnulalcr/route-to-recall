@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [{ url: "/route-to-recall-favicon.svg", type: "image/svg+xml", sizes: "any" }],
-    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
-    shortcut: "/route-to-recall-favicon.svg",
+    icon: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1024x1024" }],
+    apple: [{ url: "/route-to-recall-favicon.png", type: "image/png", sizes: "1024x1024" }],
+    shortcut: "/route-to-recall-favicon.png",
   },
   manifest: "/site.webmanifest",
   openGraph: {
